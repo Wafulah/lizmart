@@ -257,13 +257,13 @@ export default function PromotionSection(): React.ReactElement {
 
                 {p4.imageSrc && (
                   // **FIXED**: Removed negative margins. Set explicit width and height on container.
-                  <div className="pointer-events-none absolute bottom-0 right-0 w-48 h-48 md:w-64 md:h-64">
+                  <div className="pointer-events-none absolute bottom-0 -right-12 md:right-0 w-48 h-48 md:w-64 md:h-64">
                     <Image
                       src={p4.imageSrc}
                       alt={p4.imageAlt || ""}
-                      width={256} // Optimal width (w-64 = 256px)
-                      height={256} // Optimal height
-                      className="object-contain w-full h-full"
+                      width={256} 
+                      height={256} 
+                      className="object-contain w-3/4 md:w-full md:h-full"
                     />
                   </div>
                 )}
