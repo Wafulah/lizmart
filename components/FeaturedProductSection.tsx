@@ -1,6 +1,6 @@
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export type FeaturedProduct = {
   id: string;
@@ -10,7 +10,7 @@ export type FeaturedProduct = {
   compareAtPrice?: number;
   collectionName: string;
   featured?: boolean; 
-
+}
 type FeaturedProductsSectionProps = {
   products: FeaturedProduct[];
 };
@@ -37,13 +37,11 @@ export default function FeaturedProductsSection({
 
 // Sub-component: ProductCard
 function ProductCard({ product }: { product: FeaturedProduct }) {
-    const handleClick = () => {
-    router.push(`/product/${product.id}`);
-  };
-
+   
   return (
+    <Link href={`/product/${product.id}`} className="block">
     <div 
-     onClick={handleClick}
+  
     className="bg-white border border-gray-100 rounded-xl p-4 shadow-[0_8px_20px_rgba(0,0,0,0.12),0_4px_12px_rgba(251,191,36,0.25)] transition-shadow duration-300">
    <div className="flex items-start gap-4">
         {/* Image */}
@@ -83,5 +81,6 @@ function ProductCard({ product }: { product: FeaturedProduct }) {
         </div>
       </div>
     </div>
+    </Link>
   );
 }
