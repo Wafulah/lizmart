@@ -54,7 +54,7 @@ interface ProductFormProps {
           })
         | null;
 
-    collections: { id: string; title: string }[];
+    collections: { id: string; title: string, gender: string }[];
 }
 
 export type VariantFormValues = {
@@ -140,6 +140,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, collectio
         seoTitle: initialData.seo?.title ?? null,
         seoDescription: initialData.seo?.description ?? null,
         seoId: initialData.seo?.id ?? null,
+        gender: initialData.gender ?? "general",
       }
     : {
         handle: "",
@@ -160,6 +161,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, collectio
         seoTitle: null,
         seoDescription: null,
         seoId: null,
+        gender: "general",
       },
 });
 
@@ -366,27 +368,56 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, collectio
   )}
 />
 
+<FormField
+  control={form.control}
+  name="gender"
+  render={({ field }) => (
+    <FormItem className="col-span-1">
+      <FormLabel>Gender</FormLabel>
+      <FormControl>
+        <Select
+          value={field.value}
+          onValueChange={(value) => field.onChange(value)}
+        >
+          <SelectTrigger>
+            <SelectValue>{field.value}</SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="male">Male</SelectItem>
+            <SelectItem value="female">Female</SelectItem>
+            <SelectItem value="general">General</SelectItem>
+          </SelectContent>
+        </Select>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+
 {/* Collections / Multi-Select */}
 <FormField
   control={form.control}
   name="collectionIds"
   render={({ field }) => {
-    // Get selected collection objects
     const selectedCollections =
       collections.filter((c) => field.value?.includes(c.id)) ?? [];
+
+    // Filter available collections by the selected gender
+    const gender = form.watch("gender") ?? "general";
+    const filteredCollections = collections.filter(
+      (c) => c.gender === gender
+    );
 
     return (
       <FormItem className="col-span-3">
         <FormLabel>Collections</FormLabel>
         <FormControl>
           <Select
-            value="" // Keep empty to allow multiple selections
+            value=""
             onValueChange={(value) => {
               if (field.value?.includes(value)) {
-                // Remove if already selected
                 field.onChange(field.value.filter((v) => v !== value));
               } else {
-                // Add new selection
                 field.onChange([...(field.value ?? []), value]);
               }
             }}
@@ -395,28 +426,27 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, collectio
               <SelectValue>
                 {selectedCollections.length > 0
                   ? selectedCollections.map((c) => c.title).join(", ")
-                  : "Select one or more collections"}
+                  : "Select collections"}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
-              {collections?.map((collection) => (
+              {filteredCollections.map((collection) => (
                 <SelectItem key={collection.id} value={collection.id}>
-                  {collection.title}
-                  {field.value?.includes(collection.id) && " ✓"} {/* optional tick */}
+                  {collection.title}{" "}
+                  {field.value?.includes(collection.id) && "✓"}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
         </FormControl>
         <FormDescription>
-          Select one or multiple collections this product belongs to.
+          Collections available for the selected gender.
         </FormDescription>
         <FormMessage />
       </FormItem>
     );
   }}
 />
-
 
                {/* Tags Multi-Select */}
 <FormField

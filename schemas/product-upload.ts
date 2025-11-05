@@ -69,6 +69,7 @@ export const formSchema = z.object({
   seoTitle: z.string().optional().nullable(),
   seoDescription: z.string().optional().nullable(),
   seoId: z.string().optional().nullable(),
+  gender: z.string()
 });
 
 export type ProductFormValues = z.infer<typeof formSchema>;
