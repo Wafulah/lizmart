@@ -66,12 +66,22 @@ export type VariantFormValues = {
 };
 
 const availableTags = [
-  "New Arrival",
-  "Limited Edition",
-  "Best Seller",
-  "Sale",
-  "Trending",
-  "Exclusive",
+  "Tablets",
+  "Capsules",
+  "Pills",
+  "Softgels",
+  "Liquids",
+  "Syrups",
+  "Powders",
+  "Granules",
+  "Chewables",
+  "Oils",
+  "Creams",
+  "Gels",
+  "Sprays",
+  "Inhalers",
+  "Patches",
+  "Injectables",
 ];
 
 
