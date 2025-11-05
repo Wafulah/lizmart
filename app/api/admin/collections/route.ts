@@ -42,7 +42,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const parsed = createCollectionSchema.parse(body);
-    console.log("collection 2", parsed);
+    
 
     const created = await prisma.collection.create({
       data: {
@@ -50,7 +50,8 @@ export async function POST(req: Request) {
         title: parsed.title,
         description: parsed.description,
         seoId: parsed.seoId,
-        parentId: parsed.parentId
+        parentId: parsed.parentId,
+        gender: parsed.gender 
       },
     });
 

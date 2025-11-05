@@ -68,7 +68,7 @@ export async function PATCH(
     
 
     const allowed: Record<string, any> = {};
-    ["handle", "title", "description", "seoId", "parentId"].forEach((k) => {
+    ["handle", "title", "description", "seoId", "parentId","gender"].forEach((k) => {
       if (Object.prototype.hasOwnProperty.call(parsed, k)) allowed[k] = (parsed as any)[k];
     });
 
