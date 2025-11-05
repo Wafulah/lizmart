@@ -198,7 +198,7 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({
             />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">None (Top-level)</SelectItem>
+            <SelectItem value="undefined">None (Top-level)</SelectItem>
             {allCollections
               .filter((c) => !initialData || c.id !== initialData.id)
               .map((c) => (
