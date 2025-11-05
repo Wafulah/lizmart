@@ -71,6 +71,14 @@ export type Page = {
 export type Product = Omit<ShopifyProduct, 'variants' | 'images'> & {
   variants: ProductVariant[];
   images: Image[];
+  CollectionProduct?: {
+    collection: {
+      id: string;
+      handle: string;
+      title: string;
+      description?: string | null;
+    };
+  }[];
 };
 
 export type ProductOption = {

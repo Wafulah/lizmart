@@ -506,10 +506,24 @@ export async function getPages(): Promise<Page[]> {
 export async function getProduct(handle: string): Promise<Product | undefined> {
   const p = await prisma.product.findUnique({
     where: { handle },
-    include: { images: true, featuredImage: true, variants: true, seo: true }
+    include: {
+      images: true,
+      featuredImage: true,
+      variants: true,
+      seo: true,
+      CollectionProduct: {
+        include: {
+          collection: true,
+        },
+      },
+    },
   });
+
+  if (!p) return undefined;
+
   return reshapeProduct(p);
 }
+
 
 export async function getProducts({
   query,
