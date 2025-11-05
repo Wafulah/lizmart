@@ -8,6 +8,8 @@ import ProductGrid from "@/components/grid/product-grid";
 import { ThreeItemGrid } from "@/components/grid/three-items";
 import Footer from "@/components/layout/footer";
 import PromotionSection from "@/components/PromotionSection";
+import TrustBanner from "@/components/TrustBanner";
+import { FooterServices } from "@/components/FooterServices";
 
 export const metadata = {
   description: "E-Commerce",
@@ -25,10 +27,17 @@ export default async function HomePage({
   const page = Number(pageParam || 1);
 
   const perPage = 12;
-  const { items, totalPages } = await getProducts({ page, perPage });
-  const sexualHealthItems = await getProductsByCollection({ collectionHandle: "sexual-health", limit: 8 });
-  const supplimentItems = await getProductsByCollection({ collectionHandle: "supplements", limit: 8 });
-  const featuredProducts = await getFeaturedProducts(8);
+
+const [productsResult, sexualHealthItems, supplimentItems, featuredProducts] = await Promise.all([
+  getProducts({ page, perPage }),
+  getProductsByCollection({ collectionHandle: "sexual-health", limit: 8 }),
+  getProductsByCollection({ collectionHandle: "supplements", limit: 8 }),
+  getFeaturedProducts(8),
+]);
+
+
+const { items, totalPages } = productsResult;
+
   
 
   return (
@@ -54,7 +63,12 @@ export default async function HomePage({
 <FeaturedProductsSection
   products={featuredProducts}
 />
-      <Carousel />
+<TrustBanner />
+ <section className="bg-[#f0f4f8] ">
+<FooterServices />
+ </section>
+
+      {/* <Carousel /> */}
       <Footer />
     </>
   );

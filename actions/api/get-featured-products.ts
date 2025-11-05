@@ -1,9 +1,9 @@
 import prisma from "../../lib/prisma";
-import { reshapeProduct } from "../../lib/server-helpers/reshapeProduct";
 
 export type FeaturedProduct = {
   id: string;
   title: string;
+  handle: string;
   price: number;
   compareAtPrice?: number;
   collectionName: string;
@@ -14,7 +14,6 @@ export type FeaturedProduct = {
 export async function getFeaturedProducts(limit = 8): Promise<FeaturedProduct[]> {
   const productsRaw = await prisma.product.findMany({
     where: {
-      
       featured: true,
       availableForSale: true,
     },
@@ -37,7 +36,7 @@ export async function getFeaturedProducts(limit = 8): Promise<FeaturedProduct[]>
   const products: FeaturedProduct[] = productsRaw.map((p) => {
     const firstVariant = p.variants[0];
     const price = firstVariant?.priceAmount?.toNumber() || 0;
-    const compareAtPrice = firstVariant?.priceAmount?.toNumber(); // Or your original price logic
+    const compareAtPrice = firstVariant?.priceAmount?.toNumber();
 
     const collectionName =
       p.CollectionProduct?.[0]?.collection?.title || "General";
@@ -46,12 +45,13 @@ export async function getFeaturedProducts(limit = 8): Promise<FeaturedProduct[]>
 
     return {
       id: p.id,
+      handle: p.handle,
       title: p.title,
       price,
       compareAtPrice,
       collectionName,
       imageURL,
-      featured: true, // default true since we filter on featured
+      featured: true,
     };
   });
 

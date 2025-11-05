@@ -7,6 +7,7 @@ export type FeaturedProduct = {
   imageURL: string;
   title: string;
   price: number;
+  handle: string;
   compareAtPrice?: number;
   collectionName: string;
   featured?: boolean; 
@@ -39,21 +40,18 @@ export default function FeaturedProductsSection({
 function ProductCard({ product }: { product: FeaturedProduct }) {
    
   return (
-    <Link href={`/product/${product.id}`} className="block">
-    <div 
-  
-    className="bg-white border border-gray-100 rounded-xl p-4 shadow-[0_8px_20px_rgba(0,0,0,0.12),0_4px_12px_rgba(251,191,36,0.25)] transition-shadow duration-300">
+    <Link href={`/product/${product.handle}`} className="block">
+    <div className="bg-white border h-[180px]  border-gray-100 rounded-xl p-4 shadow-[0_8px_20px_rgba(0,0,0,0.12),0_4px_12px_rgba(251,191,36,0.25)] transition-shadow duration-300">
    <div className="flex items-start gap-4">
-        {/* Image */}
-        <div className="w-1/3 min-w-[90px] max-w-[120px]">
-          <Image
-            src={product.imageURL}
-            alt={product.title}
-            width={120}
-            height={120}
-            className="w-full h-auto object-contain"
-          />
-        </div>
+        
+       <div className="w-1/3 relative aspect-square">
+  <Image
+    src={product.imageURL}
+    alt={product.title}
+    fill
+    className="object-cover rounded-sm"
+  />
+</div>
 
         {/* Details */}
         <div className="flex flex-col pt-2 flex-1">
