@@ -143,6 +143,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, collectio
         seoDescription: initialData.seo?.description ?? null,
         seoId: initialData.seo?.id ?? null,
         gender: initialData.gender ?? "general",
+        featured: initialData.featured ?? false,
       }
     : {
         handle: "",
@@ -164,6 +165,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, collectio
         seoDescription: null,
         seoId: null,
         gender: "general",
+        featured: false,
       },
 });
 
@@ -178,6 +180,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, collectio
       minVariantPriceAmount: data.minVariantPriceAmount?.toString() ?? null,
       maxVariantPriceAmount: data.maxVariantPriceAmount?.toString() ?? null,
       tags: data.tags,
+      featured: data.featured ?? false,
       variants: (data.variants ?? []).map(v => ({
     ...v,
     priceAmount: v.priceAmount != null ? String(v.priceAmount) : null,
@@ -554,6 +557,27 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, collectio
                                 </FormItem>
                             )}
                         />
+                        <FormField
+    control={form.control}
+    name="featured"
+    render={({ field }) => (
+      <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+        <FormControl>
+          <Checkbox
+            checked={field.value}
+            // @ts-ignore
+            onCheckedChange={field.onChange}
+          />
+        </FormControl>
+        <div className="space-y-1 leading-none">
+          <FormLabel>Featured</FormLabel>
+          <FormDescription>
+            Mark this product as featured. Featured products appear in the featured products section.
+          </FormDescription>
+        </div>
+      </FormItem>
+    )}
+  />
                     </div>
                     <Button disabled={loading} className="ml-auto" type="submit">
                         {action}

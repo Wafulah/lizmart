@@ -55,6 +55,7 @@ export async function PATCH(
       "tags",
       "seoId",
       "handle",
+      "featured",
     ] as const;
 
     // Build scalar data

@@ -161,6 +161,7 @@ const created = await prisma.$transaction(async (tx) => {
       maxVariantPriceCurrency: maxVariantPriceCurrency ?? null,
       featuredImageId: parsed.featuredImageId ?? null,
       tags: parsed.tags ?? [],
+      featured: parsed.featured ?? false,
       seo:
         parsed.seoTitle || parsed.seoDescription
           ? { create: { title: parsed.seoTitle ?? null, description: parsed.seoDescription ?? null } }
