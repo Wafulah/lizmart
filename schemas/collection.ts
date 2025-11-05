@@ -7,6 +7,7 @@ export const createCollectionSchema = z.object({
   description: z.string().optional(),
   seoId: z.string().uuid().optional(),
   parentId: z.string().optional().nullable(),
+  gender: z.enum(["men", "women", "general"]),
 });
 
 export const updateCollectionSchema = createCollectionSchema.partial();

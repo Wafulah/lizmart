@@ -31,6 +31,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { LuTrash2 as Trash } from "react-icons/lu";
@@ -71,6 +78,7 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({
           description: initialData.description ?? "",
           seoId: initialData.seoId ?? undefined,
           parentId: (initialData as any).parentId ?? null,
+          gender: (initialData as any).gender ?? "general",
         }
       : {
           handle: "",
@@ -78,6 +86,7 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({
           description: "",
           seoId: undefined,
           parentId: null,
+          gender: "general",
         },
   });
 
@@ -170,35 +179,67 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({
                 </FormItem>
               )}
             />
-            <FormField
+          <FormField
   control={form.control}
   name="parentId"
   render={({ field }) => (
     <FormItem>
       <FormLabel>Parent Collection</FormLabel>
       <FormControl>
-        <select
-          disabled={loading}
-          value={field.value || ""}
-          onChange={(e) =>
-            field.onChange(e.target.value === "" ? null : e.target.value)
+        <Select
+          value={field.value ?? ""}
+          onValueChange={(value) =>
+            field.onChange(value === "" ? null : value)
           }
-          className="border border-input rounded-md px-3 py-2 w-full"
         >
-          <option value="">No parent (Top-level)</option>
-          {allCollections
-            .filter((c) => !initialData || c.id !== initialData.id)
-            .map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.title}
-              </option>
-            ))}
-        </select>
+          <SelectTrigger className="w-full">
+            <SelectValue
+              placeholder="No parent (Top-level)"
+            />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="">None (Top-level)</SelectItem>
+            {allCollections
+              .filter((c) => !initialData || c.id !== initialData.id)
+              .map((c) => (
+                <SelectItem key={c.id} value={c.id}>
+                  {c.title}
+                </SelectItem>
+              ))}
+          </SelectContent>
+        </Select>
       </FormControl>
       <FormMessage />
     </FormItem>
   )}
 />
+<FormField
+  control={form.control}
+  name="gender"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>Gender</FormLabel>
+      <FormControl>
+        <Select
+          disabled={loading}
+          value={field.value}
+          onValueChange={field.onChange}
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select gender" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="general">General</SelectItem>
+            <SelectItem value="men">Men</SelectItem>
+            <SelectItem value="women">Women</SelectItem>
+          </SelectContent>
+        </Select>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+
           </div>
 
           <FormField
