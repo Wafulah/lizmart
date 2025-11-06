@@ -27,36 +27,29 @@ export default async function CategoryPage(props: {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const params = await props.params;
-  const searchParams = await props.searchParams;
+  const searchParams = (await props.searchParams) || {};
 
   const { collection } = params;
-  const { sort, page: pageParam } = (searchParams as { [key: string]: string }) || {};
+  const sortSlug = typeof searchParams.sort === "string" ? searchParams.sort : undefined;
+  const genderSlug = typeof searchParams.gender === "string" ? searchParams.gender : undefined;
+  const page = parseInt(typeof searchParams.page === "string" ? searchParams.page : "1", 10) || 1;
 
-  const { sortKey, reverse } =
-    sorting.find((item) => item.slug === sort) || defaultSort;
+  const { sortKey, reverse } = sorting.find((item) => item.slug === sortSlug) || defaultSort;
 
-  const page = pageParam ? parseInt(pageParam, 10) || 1 : 1;
-
-  
-  const collectionData = await getCollection(collection);
-  if (!collectionData) return notFound();
-
- 
   const { items, totalPages } = await getProductsByCollection({
     collectionHandle: collection,
     page,
     sortKey,
     reverse,
+    gender: genderSlug,
   });
 
   return (
     <section>
       {items.length === 0 ? (
-        <p className="py-3 text-lg">{`No products found in this collection`}</p>
+        <p className="py-3 text-lg">No products found in this collection</p>
       ) : (
-        <div>
-          <ProductGrid items={items} currentPage={page} totalPages={totalPages} />
-        </div>
+        <ProductGrid items={items} currentPage={page} totalPages={totalPages} />
       )}
     </section>
   );

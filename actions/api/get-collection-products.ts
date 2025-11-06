@@ -17,27 +17,30 @@ export type ProductLite = {
 
 export async function getProductsByCollection({
   collectionHandle,
+  gender,
   page = 1,
   perPage = 12,
   sortKey,
   reverse = false,
 }: {
   collectionHandle: string;
+  gender?: string | undefined;
   page?: number;
   perPage?: number;
   sortKey?: string;
   reverse?: boolean;
 }) {
   if (!collectionHandle || typeof collectionHandle !== "string") {
-    return { items: [], total: 0, totalPages: 1 };
+    return { items: [], total: 0, totalPages: 1, page: 1, perPage };
   }
 
   const normalized = collectionHandle.trim().toLowerCase();
 
+  // Step 1: Find collection(s) matching handle or title
   const collections = await prisma.collection.findMany({
     where: {
       OR: [
-        { handle: normalized },
+        { handle: { equals: normalized } },
         { handle: { contains: normalized } },
         { title: { contains: normalized, mode: "insensitive" } },
       ],
@@ -46,32 +49,37 @@ export async function getProductsByCollection({
   });
 
   if (!collections.length) {
-    return { items: [], total: 0, totalPages: 1 };
+    return { items: [], total: 0, totalPages: 1, page: 1, perPage };
   }
 
   const collectionIds = collections.map((c) => c.id);
 
-  // Pagination logic
+  // Step 2: Pagination
   const take = Math.max(1, Math.min(100, perPage));
   const skip = Math.max(0, (page - 1) * take);
 
-  // Sorting
+  // Step 3: Sorting
   const orderBy: any = {};
   if (sortKey) orderBy[sortKey] = reverse ? "asc" : "desc";
   else orderBy["createdAt"] = reverse ? "asc" : "desc";
 
-  const total = await prisma.product.count({
-    where: {
-      CollectionProduct: { some: { collectionId: { in: collectionIds } } },
-      availableForSale: true,
+  // Step 4: Build WHERE clause dynamically
+  const whereBase: any = {
+    availableForSale: true,
+    CollectionProduct: {
+      some: { collectionId: { in: collectionIds } },
     },
-  });
+  };
+
+  if (gender && gender !== "general") {
+    whereBase.gender = gender;
+  }
+
+  // Step 5: Fetch total count and paginated products
+  const total = await prisma.product.count({ where: whereBase });
 
   const productsRaw = await prisma.product.findMany({
-    where: {
-      CollectionProduct: { some: { collectionId: { in: collectionIds } } },
-      availableForSale: true,
-    },
+    where: whereBase,
     include: {
       images: true,
       featuredImage: true,

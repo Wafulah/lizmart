@@ -1,7 +1,7 @@
 import Footer from 'components/layout/footer';
 import Collections from 'components/layout/search/collections';
 import FilterList from 'components/layout/search/filter';
-import { sorting } from 'lib/constants';
+import { genderFilters, sorting } from 'lib/constants';
 import ChildrenWrapper from './children-wrapper';
 import { Suspense } from 'react';
 
@@ -21,8 +21,9 @@ export default function SearchLayout({
             <ChildrenWrapper>{children}</ChildrenWrapper>
           </Suspense>
         </div>
-        <div className="order-none flex-none md:order-last md:w-[125px]">
+        <div className="order-none flex-none md:order-last md:w-[125px] space-y-4">
           <FilterList list={sorting} title="Sort by" />
+          <FilterList list={genderFilters} title="Gender" />
         </div>
       </div>
       <Footer />

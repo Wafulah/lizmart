@@ -18,6 +18,24 @@ export const sorting: SortFilterItem[] = [
   { title: 'Price: High to low', slug: 'price-desc', sortKey: 'minVariantPriceAmount', reverse: true }
 ];
 
+export type GenderFilterItem = {
+  title: string;
+  slug: string | null;
+  genderKey: 'men' | 'women' | 'general';
+};
+
+export const defaultGender: GenderFilterItem = {
+  title: 'All Genders',
+  slug: 'all-genders',
+  genderKey: 'general'
+};
+
+export const genderFilters: GenderFilterItem[] = [
+  defaultGender,
+  { title: 'Men', slug: 'men', genderKey: 'men' },
+  { title: 'Women', slug: 'women', genderKey: 'women' }
+];
+
 export const TAGS = {
   collections: 'collections',
   products: 'products',

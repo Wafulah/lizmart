@@ -33,10 +33,10 @@ const PHONE_NUMBER = "+254 727 717 019";
 const TOP_MENU: TopMenuItem[] = [
   { title: "HOME", path: "/" },
   { title: "CATEGORIES", path: "/search", key: "categories" }, // shows general
-  { title: "MEN", path: "/gender/men", key: "men" },
-  { title: "WOMEN", path: "/gender/women", key: "women" },
-  { title: "SPORTS", path: "/search/sports", key: "sports" },
-  { title: "SKIN CARE", path: "/search/skin-care", key: "skin" },
+  { title: "MEN", path: "/search/men?gender=men", key: "men" },
+  { title: "WOMEN", path: "/search/women?gender=women", key: "women" },
+  { title: "SPORTS", path: "/search/sports?gender=sports", key: "sports" },
+  { title: "SKIN CARE", path: "/search/skin-care?gender=skin", key: "skin" },
   { title: "CONTACT", path: "/contact-us" },
   { title: "ABOUT US", path: "/about-us"}
 ];
