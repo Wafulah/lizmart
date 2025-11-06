@@ -94,49 +94,54 @@ export async function getProductsByCollection({
     },
   };
 
-  if (gender && gender !== "general") {
+ if (gender && gender !== "general") {
+  const opposite = gender === "men" ? "women" : "men";
+
   whereBase.AND = [
     {
       OR: [
-        // Gender strict match (case-insensitive handled via lowercase normalization)
+        // Exact gender match
         { gender: gender.toLowerCase() },
 
         // Tag match
         { tags: { has: gender.toLowerCase() } },
 
-        // Title contains gender but excludes opposite
+        // Title contains gender, but not opposite
         {
-          AND: [
-            { title: { contains: gender, mode: "insensitive" } },
-            {
-              title: {
-                not: {
-                  contains: gender === "men" ? "women" : "men",
-                  mode: "insensitive",
-                },
-              },
+          title: {
+            contains: gender,
+            mode: "insensitive",
+          },
+        },
+        {
+          NOT: {
+            title: {
+              contains: opposite,
+              mode: "insensitive",
             },
-          ],
+          },
         },
 
-        // Description contains gender but excludes opposite
+        // Description contains gender, but not opposite
         {
-          AND: [
-            { description: { contains: gender, mode: "insensitive" } },
-            {
-              description: {
-                not: {
-                  contains: gender === "men" ? "women" : "men",
-                  mode: "insensitive",
-                },
-              },
+          description: {
+            contains: gender,
+            mode: "insensitive",
+          },
+        },
+        {
+          NOT: {
+            description: {
+              contains: opposite,
+              mode: "insensitive",
             },
-          ],
+          },
         },
       ],
     },
   ];
 }
+
 
 
 
