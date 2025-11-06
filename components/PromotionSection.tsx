@@ -69,7 +69,7 @@ const promos: Promo[] = [
     badge: null,
     link: "#",
     bg: BRAND.primaryGreen,
-    imageSrc: null, // No image for this card in the reference
+    imageSrc: null, 
     imageAlt: null,
     buttonBg: null,
     buttonText: null,
