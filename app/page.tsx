@@ -12,7 +12,7 @@ import TrustBanner from "@/components/TrustBanner";
 import { FooterServices } from "@/components/FooterServices";
 
 export const metadata = {
-  description: "E-Commerce",
+  description: "Lizmart Naturals",
   openGraph: { type: "website" },
 };
 
@@ -43,7 +43,7 @@ const { items, totalPages } = productsResult;
   return (
     <>
     <PromotionSection />
-      <ThreeItemGrid />
+      {/* <ThreeItemGrid /> */}
       <section className="bg-[#f0f4f8] ">
        <CollectionGrid
   title="Sexual Health"

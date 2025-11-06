@@ -35,7 +35,7 @@ const promos: Promo[] = [
   {
     id: 1,
     title: "Vitamins & Supplements",
-    subtitle: "Pyridoxine Vitamin B6",
+    subtitle: "Boost Your Immunity Naturally",
     badge: "Big Sale 45% Off",
     link: "#",
     bg: "linear-gradient(180deg,#E6F6EE 0%, #D7EFE3 100%)",
