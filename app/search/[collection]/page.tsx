@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getProductsByCollection } from "@/actions/api/get-collection-products";
 import ProductGrid from "@/components/grid/product-grid";
 import { getCollection } from "@/lib/neondb";
