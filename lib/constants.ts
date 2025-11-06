@@ -26,7 +26,7 @@ export type GenderFilterItem = {
 
 export const defaultGender: GenderFilterItem = {
   title: 'All Genders',
-  slug: 'all-genders',
+  slug: 'general',
   genderKey: 'general'
 };
 
