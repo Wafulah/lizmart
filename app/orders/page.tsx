@@ -31,9 +31,14 @@ export default function OrdersClient({ userId }: { userId?: string | null }) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // if no user, don't fetch; optionally you can show a message prompting login
-    if (!userId) {
+    // coerce to string early to satisfy TypeScript and keep logic clear
+    const uid = userId ?? "";
+
+    // if no user, don't fetch; optionally show a message prompting login
+    if (!uid) {
       setOrders([]);
+      setLoading(false);
+      setError(null);
       return;
     }
 
@@ -42,15 +47,17 @@ export default function OrdersClient({ userId }: { userId?: string | null }) {
       setLoading(true);
       setError(null);
       try {
-        
-
-        const res = await fetch(`actions/api/get-order?userId=${encodeURIComponent(userId ?? "")}`, {
+        // ensure uid is a string and encoded safely
+        const url = `/api/orders?userId=${encodeURIComponent(String(uid))}`;
+        const res = await fetch(url, {
           signal: abort.signal,
         });
+
         if (!res.ok) {
           const j = await res.json().catch(() => ({}));
           throw new Error(j?.message ?? `Failed to fetch orders (${res.status})`);
         }
+
         const json = await res.json();
         const remoteOrders = json.orders ?? [];
 
@@ -79,8 +86,8 @@ export default function OrdersClient({ userId }: { userId?: string | null }) {
         setOrders(mapped);
       } catch (err: any) {
         if (err.name === "AbortError") return;
-        console.error(err);
-        setError(err.message ?? "Failed to load orders");
+        console.error("Orders load error:", err);
+        setError(err?.message ?? "Failed to load orders");
       } finally {
         setLoading(false);
       }
