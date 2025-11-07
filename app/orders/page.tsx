@@ -44,7 +44,7 @@ export default function OrdersClient({ userId }: { userId?: string | null }) {
       try {
         
 
-        const res = await fetch(`action/api/get-order?userId=${encodeURIComponent(userId ?? "")}`, {
+        const res = await fetch(`actions/api/get-order?userId=${encodeURIComponent(userId ?? "")}`, {
           signal: abort.signal,
         });
         if (!res.ok) {
