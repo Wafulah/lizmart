@@ -1,9 +1,9 @@
 
 "use client";
 
-import React from 'react';
 import { ArrowLeft, ShoppingCart } from "lucide-react";
 import Link from "next/link";
+import React from 'react';
 
 const COLORS = {
   primary: "#1A7431",
@@ -153,7 +153,24 @@ function ActiveOrders({ orders }: { orders: Order[] }) {
 }
 
 function PastOrders({ orders }: { orders: Order[] }) {
-  if (!orders.length) return <div style={{ padding: 24 }}>No past orders.</div>;
+  if (!orders.length) return (  <div style={{ padding: 24 }}>
+        <div
+          style={{
+            background: "rgba(255,198,0,0.04)",
+            padding: 28,
+            borderRadius: 12,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 12,
+          }}
+        >
+          <ShoppingCart size={48} strokeWidth={1} color={COLORS.primary} />
+          <p style={{ color: COLORS.textMuted, fontWeight: 500, textAlign: "center" }}>
+            No past orders.
+          </p>
+        </div>
+      </div>);
   return (
     <div style={{ display: "grid", gap: 12 }}>
       {orders.map((order) => (

@@ -58,63 +58,102 @@ export type OrderDetail = OrderLite & {
 };
 
 /* ---------- dummy constants (after types) ---------- */
+/* ---------- dummy constants (after types) ---------- */
+
 const DUMMY_ORDER_ITEM: OrderItemLite = {
-  id: "dummy-item-1",
-  productTitle: "Herbal Hair Oil",
-  variantTitle: "250ml",
-  sku: "DUMMY-SKU",
-  quantity: 1,
-  unitPriceAmount: 1200,
-  lineTotalAmount: 1200,
-  image: "/1.webp",
-};
+    id: "dummy-item-1-real",
+    productTitle: "PMS Support Gummies",
+    variantTitle: "PMS Support Gummies",
+    sku: null,
+    quantity: 1,
+    unitPriceAmount: 1.0,
+    lineTotalAmount: 1.0,
+    image: "/1.webp"
+  };
 
 const DUMMY_ORDER: OrderLite = {
-  id: "dummy-order-1",
-  orderNumber: "DUMMY-001",
-  status: "PENDING",
-  paymentStatus: "PENDING",
-  totalAmount: 1200,
-  totalQuantity: 1,
-  createdAt: new Date().toISOString(),
-  placedAt: null,
-  shippingAddress: {
+    id: "dummy-order-1-real",
+    orderNumber: "713dd6e9-6d6c-4caa-a85d-ac938b655081",
+    status: "PENDING",
+    paymentStatus: "PENDING",
+    totalAmount: 2.0,
+    totalQuantity: 2,
+    createdAt: "2025-11-07 11:02:56.471",
+    placedAt: null,
+    shippingAddress: {
     id: "dummy-address-1",
     fullName: "Jane Doe",
     phone: "+254700000000",
     county: "Nairobi",
-    town: "Westlands",
+    town: "Westlands"
   },
-  items: [DUMMY_ORDER_ITEM],
-};
+    items: [
+    {
+    id: "dummy-item-1-real",
+    productTitle: "PMS Support Gummies",
+    variantTitle: "PMS Support Gummies",
+    sku: null,
+    quantity: 1,
+    unitPriceAmount: 1.0,
+    lineTotalAmount: 1.0,
+    image: "/1.webp"
+  }
+  ]
+  };
 
 const DUMMY_ORDER_DETAIL: OrderDetail = {
-  ...DUMMY_ORDER,
-  notes: null,
-  metadata: null,
-  payments: [
+    id: "dummy-order-1-real",
+    orderNumber: "713dd6e9-6d6c-4caa-a85d-ac938b655081",
+    status: "PENDING",
+    paymentStatus: "PENDING",
+    totalAmount: 2.0,
+    totalQuantity: 2,
+    createdAt: "2025-11-07 11:02:56.471",
+    placedAt: null,
+    shippingAddress: {
+    id: "dummy-address-1",
+    fullName: "Jane Doe",
+    phone: "+254700000000",
+    county: "Nairobi",
+    town: "Westlands"
+  },
+    items: [
     {
-      id: "dummy-pay-1",
-      provider: "Mpesa",
-      providerPaymentId: "MPESA-DUMMY",
-      method: "Mpesa",
-      amount: 1200,
-      currency: "KES",
-      status: "PENDING",
-      createdAt: new Date().toISOString(),
-    },
+    id: "dummy-item-1-real",
+    productTitle: "PMS Support Gummies",
+    variantTitle: "PMS Support Gummies",
+    sku: null,
+    quantity: 1,
+    unitPriceAmount: 1.0,
+    lineTotalAmount: 1.0,
+    image: "/1.webp"
+  }
   ],
-  shipments: [
+    notes: null,
+    metadata: null,
+    payments: [
     {
-      id: "dummy-ship-1",
-      carrier: "Easy Coach",
-      trackingNumber: "EC-DUMMY-TRACK",
-      status: "NOT_SHIPPED",
-      shippedAt: null,
-      deliveredAt: null,
-    },
+    id: "dummy-pay-1",
+    provider: "Mpesa",
+    providerPaymentId: "MPESA-DUMMY",
+    method: "Mpesa",
+    amount: 2.0,
+    currency: "KES",
+    status: "COMPLETED",
+    createdAt: "2025-11-07 11:02:56.471"
+  }
   ],
-};
+    shipments: [
+    {
+    id: "dummy-ship-1",
+    carrier: "Local Courier",
+    trackingNumber: "LC-DUMMY-TRACK",
+    status: "PROCESSING",
+    shippedAt: null,
+    deliveredAt: null
+  }
+  ]
+  };
 
 /* ---------- helpers ---------- */
 function toNumber(value: any): number {
@@ -162,7 +201,7 @@ function getSnapshotTitle(snapshot: any): string | null {
 /* ---------- actions ---------- */
 
 export async function getOrdersByUser(userId?: string): Promise<OrderLite[]> {
-  console.log(userId);
+  
   const orders = await prisma.order.findMany({
     where: { userId },
     orderBy: { createdAt: "desc" },
