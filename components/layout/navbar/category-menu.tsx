@@ -4,7 +4,7 @@ import { ChevronDown, Menu, Phone, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import CategoriesDropdown from "./categories-dropdown";
+
 import ProfileDropdown from "@/components/ProfileDropdown";
 
 
@@ -307,13 +307,7 @@ export default function FullCommerceNavbar({ collections }: { collections: NavCo
 
         {/* main nav */}
         <ul className="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-700 tracking-wide">
-           {/* <CategoriesDropdown
-      collections={collections as any[]}
-      isMobile={false}
-      openKey={openKey}
-      onOpen={openDropdown}
-      onClose={() => closeDropdownWithDelay()}
-    /> */}
+           
           {TOP_MENU.map((m) => {
             const key = m.key;
             const isOpen = key ? openKey === key : false;
