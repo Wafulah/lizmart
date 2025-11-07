@@ -1,4 +1,6 @@
-// app/orders/[orderId]/page.tsx
+export const dynamic = "force-dynamic"; 
+
+
 import React from "react";
 import Link from "next/link";
 import { ArrowLeft, Clock, MapPin, CreditCard, Truck } from "lucide-react";
