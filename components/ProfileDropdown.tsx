@@ -1,9 +1,9 @@
 "use client";
 
+import UserButton from "@/components/auth/client-user-button";
 import { ChevronDown, UserCircle2 } from "lucide-react";
 import Link from "next/link";
-import { useState, useRef } from "react";
-import UserButton from "@/components/auth/user-button";
+import { useRef, useState } from "react";
 
 export default function ProfileDropdown() {
   const [open, setOpen] = useState(false);
