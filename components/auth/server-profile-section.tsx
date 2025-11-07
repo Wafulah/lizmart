@@ -1,11 +1,14 @@
 "use server";
+
+export const dynamic = "force-dynamic";
+
 import ProfileDropdown from "@/components/ProfileDropdown";
 import { currentUser } from "@/lib/auth";
 
 export default async function ServerProfileSection() {
   const user = await currentUser();
 
-  // Only pass serializable plain data to the client component
+  
   const serverUser = user
     ? {
         id: user.id,
