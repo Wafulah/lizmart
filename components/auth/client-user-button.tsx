@@ -1,6 +1,6 @@
-"use server";
+"use client";
 
-import { currentUser } from "@/lib/auth";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { SignOut } from "./sign-out";
 import { Avatar, AvatarImage } from "./ui/avatar";
@@ -14,7 +14,8 @@ import {
 } from "./ui/dropdown-menu";
 
 export default async function UserButton() {
-  const user = await currentUser();
+  const { data: session } = useSession();
+  const user = session?.user;
 
   if (!user) {
     return (

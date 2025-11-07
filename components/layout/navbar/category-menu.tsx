@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-import ServerProfileSection from "@/components/auth/server-profile-section";
+import ProfileDropdown from "@/components/ProfileDropdown";
 
 
 type NavCollection = {
@@ -337,7 +337,7 @@ export default function FullCommerceNavbar({ collections }: { collections: NavCo
               );
             }
           })}
-          <ServerProfileSection />
+          <ProfileDropdown />
         </ul>
 
         {/* right side phone */}

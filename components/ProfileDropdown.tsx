@@ -1,20 +1,16 @@
-// components/ProfileDropdown.tsx
 "use client";
 
 import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { ChevronDown, UserCircle2 } from "lucide-react";
-import { SignOut } from "@/components/auth/sign-out"; 
+import { useSession } from "next-auth/react";
+import { SignOut } from "@/components/auth/sign-out";
 import { Avatar, AvatarImage } from "./ui/avatar";
 
-type ServerUser = {
-  id?: string | null;
-  name?: string | null;
-  email?: string | null;
-  image?: string | null;
-} | null;
+export default function ProfileDropdown() {
+  const { data: session, status } = useSession();
+  const user = session?.user ?? null;
 
-export default function ProfileDropdown({ serverUser }: { serverUser: ServerUser }) {
   const [open, setOpen] = useState(false);
   const closeTimeout = useRef<number | null>(null);
 
@@ -28,10 +24,18 @@ export default function ProfileDropdown({ serverUser }: { serverUser: ServerUser
     closeTimeout.current = window.setTimeout(() => setOpen(false), delay);
   };
 
-  const displayName = serverUser?.name ?? serverUser?.email ?? "Guest";
+  // handle display name and image
+  const displayName = user?.name ?? user?.email ?? "Guest";
+  const avatarSrc =
+    user?.image ??
+    `https://api.dicebear.com/9.x/thumbs/svg?seed=${encodeURIComponent(displayName)}&randomizeIds=true`;
 
   return (
-    <li className="relative" onMouseEnter={openDropdown} onMouseLeave={() => closeDropdown()}>
+    <li
+      className="relative"
+      onMouseEnter={openDropdown}
+      onMouseLeave={() => closeDropdown()}
+    >
       <button
         className="py-3 px-3 flex items-center gap-2 hover:text-teal-600 transition duration-150"
         aria-expanded={open}
@@ -39,7 +43,11 @@ export default function ProfileDropdown({ serverUser }: { serverUser: ServerUser
       >
         <UserCircle2 className="w-5 h-5 text-teal-600" />
         <span className="font-medium tracking-wide">MY PROFILE</span>
-        <ChevronDown className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+        <ChevronDown
+          className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${
+            open ? "rotate-180" : ""
+          }`}
+        />
       </button>
 
       {open && (
@@ -50,24 +58,22 @@ export default function ProfileDropdown({ serverUser }: { serverUser: ServerUser
         >
           <div className="p-4 border-b border-gray-100 flex items-center gap-3">
             <Avatar className="h-10 w-10">
-              <AvatarImage
-                src={
-                  serverUser?.image ??
-                  `https://api.dicebear.com/9.x/thumbs/svg?seed=${encodeURIComponent(
-                    displayName
-                  )}&randomizeIds=true`
-                }
-                alt={displayName ?? "user"}
-              />
+              <AvatarImage src={avatarSrc} alt={displayName} />
             </Avatar>
             <div>
               <p className="text-sm font-medium text-gray-800">{displayName}</p>
-              <p className="text-xs text-gray-500">{serverUser?.email ?? "Not logged in"}</p>
+              <p className="text-xs text-gray-500">
+                {user?.email ?? "Not logged in"}
+              </p>
             </div>
           </div>
 
           <div className="p-2">
-            {!serverUser ? (
+            {status === "loading" ? (
+              <p className="text-center text-sm text-gray-500 py-2">
+                Checking session...
+              </p>
+            ) : !user ? (
               <Link
                 href="/dashboard/login"
                 className="block px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-teal-50"
