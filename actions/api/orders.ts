@@ -3,66 +3,7 @@
 
 import prisma from "@/lib/prisma";
 
-const DUMMY_ORDER_ITEM: OrderItemLite = {
-  id: "dummy-item-1",
-  productTitle: "Herbal Hair Oil",
-  variantTitle: "250ml",
-  sku: "DUMMY-SKU",
-  quantity: 1,
-  unitPriceAmount: 1200,
-  lineTotalAmount: 1200,
-  image: "/1.webp",
-};
-
-const DUMMY_ORDER: OrderLite = {
-  id: "dummy-order-1",
-  orderNumber: "DUMMY-001",
-  status: "Pending",
-  paymentStatus: "Unpaid",
-  totalAmount: 1200,
-  totalQuantity: 1,
-  createdAt: new Date().toISOString(),
-  placedAt: null,
-  shippingAddress: {
-    id: "dummy-address-1",
-    fullName: "Jane Doe",
-    phone: "+254700000000",
-    county: "Nairobi",
-    town: "Westlands",
-  },
-  items: [DUMMY_ORDER_ITEM],
-};
-
-const DUMMY_ORDER_DETAIL: OrderDetail = {
-  ...DUMMY_ORDER,
-  notes: null,
-  metadata: null,
-  payments: [
-    {
-      id: "dummy-pay-1",
-      provider: "Mpesa",
-      providerPaymentId: "MPESA-DUMMY",
-      method: "Mpesa",
-      amount: 1200,
-      currency: "KES",
-      status: "Pending",
-      createdAt: new Date().toISOString(),
-    },
-  ],
-  shipments: [
-    {
-      id: "dummy-ship-1",
-      carrier: "Easy Coach",
-      trackingNumber: "EC-DUMMY-TRACK",
-      status: "Not Shipped",
-      shippedAt: null,
-      deliveredAt: null,
-    },
-  ],
-};
-
-
-/* ---------- types (unchanged) ---------- */
+/* ---------- types ---------- */
 export type OrderItemLite = {
   id: string;
   productTitle?: string | null;
@@ -93,6 +34,88 @@ export type OrderLite = {
   items: OrderItemLite[];
 };
 
+export type OrderDetail = OrderLite & {
+  notes?: any;
+  metadata?: any;
+  payments: {
+    id: string;
+    provider: string;
+    providerPaymentId?: string | null;
+    method?: string | null;
+    amount: number;
+    currency: string;
+    status: string;
+    createdAt: string;
+  }[];
+  shipments: {
+    id: string;
+    carrier?: string | null;
+    trackingNumber?: string | null;
+    status?: string | null;
+    shippedAt?: string | null;
+    deliveredAt?: string | null;
+  }[];
+};
+
+/* ---------- dummy constants (after types) ---------- */
+const DUMMY_ORDER_ITEM: OrderItemLite = {
+  id: "dummy-item-1",
+  productTitle: "Herbal Hair Oil",
+  variantTitle: "250ml",
+  sku: "DUMMY-SKU",
+  quantity: 1,
+  unitPriceAmount: 1200,
+  lineTotalAmount: 1200,
+  image: "/1.webp",
+};
+
+const DUMMY_ORDER: OrderLite = {
+  id: "dummy-order-1",
+  orderNumber: "DUMMY-001",
+  status: "PENDING",
+  paymentStatus: "PENDING",
+  totalAmount: 1200,
+  totalQuantity: 1,
+  createdAt: new Date().toISOString(),
+  placedAt: null,
+  shippingAddress: {
+    id: "dummy-address-1",
+    fullName: "Jane Doe",
+    phone: "+254700000000",
+    county: "Nairobi",
+    town: "Westlands",
+  },
+  items: [DUMMY_ORDER_ITEM],
+};
+
+const DUMMY_ORDER_DETAIL: OrderDetail = {
+  ...DUMMY_ORDER,
+  notes: null,
+  metadata: null,
+  payments: [
+    {
+      id: "dummy-pay-1",
+      provider: "Mpesa",
+      providerPaymentId: "MPESA-DUMMY",
+      method: "Mpesa",
+      amount: 1200,
+      currency: "KES",
+      status: "PENDING",
+      createdAt: new Date().toISOString(),
+    },
+  ],
+  shipments: [
+    {
+      id: "dummy-ship-1",
+      carrier: "Easy Coach",
+      trackingNumber: "EC-DUMMY-TRACK",
+      status: "NOT_SHIPPED",
+      shippedAt: null,
+      deliveredAt: null,
+    },
+  ],
+};
+
 /* ---------- helpers ---------- */
 function toNumber(value: any): number {
   if (value == null) return 0;
@@ -106,16 +129,9 @@ function toNumber(value: any): number {
   return Number(value);
 }
 
-/**
- * Safely extract `title` from a Prisma Json / merchandiseSnapshot.
- * The snapshot can be string | number | boolean | JsonObject | JsonArray.
- */
 function getSnapshotTitle(snapshot: any): string | null {
   if (!snapshot) return null;
-
-  // If snapshot is already an object and has title
   if (typeof snapshot === "object" && !Array.isArray(snapshot)) {
-    // use 'in' check to satisfy TS and avoid direct property access on union types
     if ("title" in snapshot && snapshot.title != null) {
       try {
         return String((snapshot as any).title);
@@ -123,16 +139,12 @@ function getSnapshotTitle(snapshot: any): string | null {
         return null;
       }
     }
-
-    // Some snapshots are nested { product: { title: "..." } }
     if ("product" in snapshot && snapshot.product && typeof snapshot.product === "object") {
       if ("title" in snapshot.product && snapshot.product.title != null) {
         return String((snapshot.product as any).title);
       }
     }
   }
-
-  // If snapshot is a string that contains JSON, try parsing it
   if (typeof snapshot === "string") {
     try {
       const parsed = JSON.parse(snapshot);
@@ -141,20 +153,15 @@ function getSnapshotTitle(snapshot: any): string | null {
         if ("product" in parsed && parsed.product?.title != null) return String(parsed.product.title);
       }
     } catch {
-      // not JSON — ignore
+      // not JSON
     }
   }
-
   return null;
 }
 
-/* ---------- dummy data & main functions (mapping parts) ---------- */
+/* ---------- actions ---------- */
 
-/* (keep your DUMMY_ORDERS etc.) -- omitted here for brevity, assume unchanged */
-
-/* Example mapping inside getOrdersByUser / getOrderById */
 export async function getOrdersByUser(userId?: string): Promise<OrderLite[]> {
-  // ... (dummy fallback omitted)
   const orders = await prisma.order.findMany({
     where: { userId },
     orderBy: { createdAt: "desc" },
@@ -175,24 +182,16 @@ export async function getOrdersByUser(userId?: string): Promise<OrderLite[]> {
     },
   });
 
-
- if (!orders || orders.length === 0) {
+  // fallback to dummy if not found
+  if (!orders || orders.length === 0) {
     return [DUMMY_ORDER];
   }
 
   return orders.map((o) => {
     const items: OrderItemLite[] =
       (o.items || []).map((it) => {
-        // featured image from variant->product if available
-        const image =
-          it.variant?.product?.featuredImage?.url ??
-          // merchandiseSnapshot might be an object/string — use helper
-          getSnapshotTitle(it.merchandiseSnapshot) ? "/1.webp" : "/1.webp";
-
-        // productTitle resolution (prefer productTitle column, fallback to snapshot title)
-        const productTitle =
-          it.productTitle ?? getSnapshotTitle(it.merchandiseSnapshot) ?? null;
-
+        const image = it.variant?.product?.featuredImage?.url ?? "/1.webp";
+        const productTitle = it.productTitle ?? getSnapshotTitle(it.merchandiseSnapshot) ?? null;
         return {
           id: it.id,
           productTitle,
@@ -228,32 +227,9 @@ export async function getOrdersByUser(userId?: string): Promise<OrderLite[]> {
   });
 }
 
-
-export type OrderDetail = OrderLite & {
-  notes?: any;
-  metadata?: any;
-  payments: {
-    id: string;
-    provider: string;
-    providerPaymentId?: string | null;
-    method?: string | null;
-    amount: number;
-    currency: string;
-    status: string;
-    createdAt: string;
-  }[];
-  shipments: {
-    id: string;
-    carrier?: string | null;
-    trackingNumber?: string | null;
-    status?: string | null;
-    shippedAt?: string | null;
-    deliveredAt?: string | null;
-  }[];
-};
-
-export async function getOrderById(orderId: string, userId?: string): Promise<OrderDetail | null> {
-  if (!orderId) return null;
+export async function getOrderById(orderId: string, userId?: string): Promise<OrderDetail> {
+  // if caller passes nothing, return dummy
+  if (!orderId) return DUMMY_ORDER_DETAIL;
 
   const order = await prisma.order.findUnique({
     where: { id: orderId },
@@ -275,13 +251,13 @@ export async function getOrderById(orderId: string, userId?: string): Promise<Or
     },
   });
 
-  if (!order) return null;
-  if (userId && order.userId && order.userId !== userId) return null;
+  // return dummy if not found or if user mismatch
+  if (!order) return DUMMY_ORDER_DETAIL;
+  if (userId && order.userId && order.userId !== userId) return DUMMY_ORDER_DETAIL;
 
   const items = (order.items || []).map((it) => {
     const image = it.variant?.product?.featuredImage?.url ?? "/1.webp";
     const productTitle = it.productTitle ?? getSnapshotTitle(it.merchandiseSnapshot) ?? null;
-
     return {
       id: it.id,
       productTitle,
@@ -322,8 +298,7 @@ export async function getOrderById(orderId: string, userId?: string): Promise<Or
     status: String(order.status),
     paymentStatus: String(order.paymentStatus),
     totalAmount: toNumber(order.totalAmount),
-    totalQuantity:
-      order.totalQuantity ?? items.reduce((s, it) => s + (it.quantity ?? 0), 0),
+    totalQuantity: order.totalQuantity ?? items.reduce((s, it) => s + (it.quantity ?? 0), 0),
     createdAt: order.createdAt ? order.createdAt.toISOString() : new Date().toISOString(),
     placedAt: order.placedAt ? order.placedAt.toISOString() : null,
     shippingAddress: order.shippingAddress
@@ -342,10 +317,5 @@ export async function getOrderById(orderId: string, userId?: string): Promise<Or
     shipments,
   };
 
-  if (!order) return DUMMY_ORDER_DETAIL;
-  if (userId && order.userId && order.userId !== userId) return DUMMY_ORDER_DETAIL;
-
-  // ... existing mapping logic (unchanged)
-  // at the end:
   return detail ?? DUMMY_ORDER_DETAIL;
 }
