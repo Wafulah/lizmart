@@ -1,4 +1,4 @@
-// components/auth/server-profile-section.tsx
+"use server";
 import ProfileDropdown from "@/components/ProfileDropdown";
 import { currentUser } from "@/lib/auth";
 
