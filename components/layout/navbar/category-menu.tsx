@@ -41,7 +41,7 @@ const TOP_MENU: TopMenuItem[] = [
   { title: "SKIN CARE", path: "/search/skin-care?gender=skin", key: "skin" },
   { title: "CONTACT", path: "/contact-us" },
   { title: "ABOUT US", path: "/about-us"},
-  { title: "MY PROFILE", key: "profile" }
+
 ];
 
 /* ---------- helpers ---------- */
