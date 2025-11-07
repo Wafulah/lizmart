@@ -1,11 +1,10 @@
 "use client";
 
-import UserButton from "@/components/auth/client-user-button";
 import { ChevronDown, UserCircle2 } from "lucide-react";
 import Link from "next/link";
 import { useRef, useState } from "react";
 
-export default function ProfileDropdown() {
+export default function ProfileDropdown({ userButton }: { userButton: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const closeTimeout = useRef<NodeJS.Timeout | null>(null);
 
@@ -45,7 +44,7 @@ export default function ProfileDropdown() {
           onMouseLeave={() => closeDropdown()}
         >
           <div className="p-4 border-b border-gray-100">
-            <UserButton />
+            {userButton}
           </div>
           <div className="p-2 space-y-1">
             <Link
@@ -54,7 +53,6 @@ export default function ProfileDropdown() {
             >
               My Orders
             </Link>
-            
           </div>
         </div>
       )}
