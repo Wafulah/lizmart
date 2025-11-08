@@ -36,7 +36,7 @@ export default function NavbarClient({ menu }: Props) {
             prefetch={true}
             className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
           >
-            <Image src="/logo.png" alt="Lizmart Naturals Logo" width="40" height="40" />
+            <Image src="/logo.png" alt="Lizmart Naturals Logo" width="80" height="80" className="rounded-full" />
             <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
               {SITE_NAME}
             </div>
