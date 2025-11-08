@@ -271,7 +271,7 @@ export default function FullCommerceNavbar({ collections }: { collections: NavCo
                         </Link>
                       </li>
                     ))}
-                    <ProfileDropdown />
+                    
                   </ul>
                 )}
               </li>
@@ -284,6 +284,10 @@ export default function FullCommerceNavbar({ collections }: { collections: NavCo
 )}
               </li>
             ))}
+            <li className="border-t pt-2 mt-2">
+              
+                <ProfileDropdown /> 
+            </li>
           </ul>
 
           <div className="mt-6 border-t pt-4">
