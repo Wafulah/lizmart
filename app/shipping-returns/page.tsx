@@ -1,5 +1,6 @@
 // app/shipping-returns/page.tsx
 
+import Footer from '@/components/layout/footer';
 import { Truck, RefreshCw, MapPin, Scale } from 'lucide-react';
 
 const BRAND_GREEN = "text-[#2e7d32]";
@@ -104,6 +105,9 @@ export default function ShippingReturnsPage() {
           </div>
         </section>
         
+      </div>
+       <div className="w-screen">
+  <Footer />
       </div>
     </div>
   );

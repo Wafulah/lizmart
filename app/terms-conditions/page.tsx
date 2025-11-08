@@ -1,5 +1,6 @@
 // app/terms-conditions/page.tsx
 
+import Footer from '@/components/layout/footer';
 import { Gavel, Globe, ShieldCheck, HeartHandshake, DollarSign, Truck } from 'lucide-react';
 
 const BRAND_GREEN = "text-[#2e7d32]";
@@ -90,6 +91,9 @@ export default function TermsAndConditionsPage() {
           Last Updated: November 8, 2025.
         </p>
       </footer>
+       <div className="w-screen">
+  <Footer />
+      </div>
     </div>
   );
 }

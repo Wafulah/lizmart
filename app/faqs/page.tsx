@@ -6,19 +6,20 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import Footer from '@/components/layout/footer';
 
 const faqsData = [
   {
     id: "item-1",
     icon: <HelpCircle className="w-5 h-5 text-[#2e7d32]" />,
     question: "What is Lizmart Naturals and what is your history?",
-    answer: "LIZMART NATURALS is an Experienced, Dynamic, and Vibrant distributor specializing in high-quality health, wellness supplements, and cosmetics. We have been proudly operational and serving our market since <b>2023</b>, with a proven record of success. Though our base is in Kenya, we supply our products across <b>Africa and Europe</b>.",
+    answer: "LIZMART NATURALS is an Experienced, Dynamic, and Vibrant distributor specializing in high-quality health, wellness supplements, and cosmetics. We have been proudly operational and serving our market since 2023, with a proven record of success. Though our base is in Kenya, we supply our products across Africa and Europe.",
   },
   {
     id: "item-2",
     icon: <Sparkles className="w-5 h-5 text-[#2e7d32]" />,
     question: "How can I be assured of product quality and safety?",
-    answer: "Our core management tenet is: 'Quality is superior, Service is supreme, Reputation is first.' We ensure <b>Uncompromising Quality</b> by using 100% natural, well-researched formulas that consistently <b>Exceed Industry Standards</b>. Every product is subjected to rigorous safety checks and statistical evidence to guarantee workability and effectiveness.",
+    answer: "Our core management tenet is: 'Quality is superior, Service is supreme, Reputation is first.' We ensure Uncompromising Quality by using 100% natural, well-researched formulas that consistently Exceed Industry Standards. Every product is subjected to rigorous safety checks and statistical evidence to guarantee workability and effectiveness.",
   },
   {
     id: "item-3",
@@ -40,13 +41,13 @@ const faqsData = [
     id: "item-4",
     icon: <Truck className="w-5 h-5 text-[#2e7d32]" />,
     question: "What is your typical delivery timeframe?",
-    answer: "We guarantee <b>Nationwide Delivery within 24 hours</b> across Kenya from the time of order confirmation. For exact fee details, please review our comprehensive Shipping Policy.",
+    answer: "We guarantee <b>Nationwide Delivery within 24 hours across Kenya from the time of order confirmation. For exact fee details, please review our comprehensive Shipping Policy.",
   },
   {
     id: "item-5",
     icon: <Handshake className="w-5 h-5 text-[#2e7d32]" />,
     question: "Do you offer wholesale, white label, or partnership opportunities?",
-    answer: "Yes, we actively seek distributors and partners. We offer <b>White Label Options</b> for clients looking to start their own brand, and significant <b>Bulk Purchase</b> opportunities. Please reach out to us directly via phone or email to discuss wholesale terms.",
+    answer: "Yes, we actively seek distributors and partners. We offer White Label Options for clients looking to start their own brand, and significant Bulk Purchase opportunities. Please reach out to us directly via phone or email to discuss wholesale terms.",
   },
 ];
 
@@ -92,6 +93,9 @@ export default function FAQPage() {
           or email us at info@lizmartNaturals.com.
         </p>
       </footer>
+      <div className="w-screen">
+  <Footer />
+      </div>
     </div>
   );
 }
