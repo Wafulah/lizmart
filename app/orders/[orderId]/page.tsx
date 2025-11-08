@@ -179,7 +179,7 @@ export default async function OrderDetailsPage({ params }: PageProps){
           </div>
         </div>
       </div>
-      <Footer />
+    
     </div>
   );
 }

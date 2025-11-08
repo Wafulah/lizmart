@@ -69,7 +69,7 @@ export default async function LoginPage({ searchParams }: PageProps) {
           </SignIn>
         </div>
       </div>
-      <Footer />
+      
     </div>
   );
 }

@@ -2,6 +2,7 @@ import OrdersClient, { Order } from "@/components/OrdersClient";
 import { getOrdersByUser } from "@/actions/api/orders";
 import { currentUser } from "@/lib/auth";
 import Link from "next/link";
+import Footer from "@/components/layout/footer";
 
 export default async function OrdersPage() {
   const user = await currentUser();
@@ -60,5 +61,10 @@ export default async function OrdersPage() {
     })),
   }));
 
-  return <OrdersClient orders={orders} />;
+  return (
+  <>
+    <OrdersClient orders={orders} />
+    <Footer />
+  </>
+);
 }

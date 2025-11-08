@@ -20,7 +20,7 @@ const PALETTE = {
   primaryGreen: 'text-teal-700',
   accentGold: 'text-amber-500',
   bgLight: 'bg-green-50',
-  bgDark: 'bg-teal-800',
+  bgDark: 'bg-teal-900',
   textDark: 'text-gray-800',
   textLight: 'text-white',
 };
