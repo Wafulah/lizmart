@@ -236,7 +236,7 @@ export default function AboutUsPage() {
               </p>
               <p className="flex items-center">
                 <CheckCircle className='w-5 h-5 text-teal-600 mr-2 flex-shrink-0' />
-                Payments via Mpesa Till number 945577 or Cash on Delivery (Nairobi)
+                Payments via Mpesa Till number 5662836 or Cash on Delivery (Nairobi)
               </p>
             </div>
           </div>
