@@ -43,7 +43,7 @@ export async function MpesaPay(
             PartyB: businessShortCode, // PartyB can be the same as BusinessShortCode
             PhoneNumber: phoneNumber,
             CallBackURL: "https://lizmart.vercel.app/api/admin/mpesa-webhook", // Replace with your callback URL
-            AccountReference: "Glamarace", // Replace with your account reference
+            AccountReference: "Lizmart", // Replace with your account reference
             TransactionDesc: "Payment for LizMart Naturals products", // Replace with your transaction description
         };
         
