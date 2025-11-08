@@ -208,14 +208,14 @@ selectedOptions: selectedOpts != null
 
     const mpesaResult = await MpesaPay(Number(mpesaNumber), amountNumber, [order.id]);
 
-    const successUrl = `${process.env.FRONTEND_STORE_URL}/cart/${cartId}?success=true`;
+    const successUrl = `${process.env.FRONTEND_STORE_URL}/checkout/success?orderId=${order.id}`;
     return NextResponse.json(
       { success: true, message: "Checkout initiated", redirectUrl: successUrl, mpesaResult },
       { status: 200, headers: corsHeaders }
     );
   } catch (error) {
     console.error("Checkout route error:", error);
-    const cancelUrl = `${process.env.FRONTEND_STORE_URL}/cart/${cartId}?canceled=true`;
+    const cancelUrl = `${process.env.FRONTEND_STORE_URL}/checkout/failure?cartId=${cartId}`;
     return NextResponse.json(
       { success: false, message: "Checkout failed", redirectUrl: cancelUrl },
       { status: 500, headers: corsHeaders }
