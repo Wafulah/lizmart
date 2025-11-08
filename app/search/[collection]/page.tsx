@@ -12,7 +12,7 @@ export async function generateMetadata(props: {
   const params = await props.params;
   const collectionHandle = params.collection;
 
-  // Fetch 1 product to determine metadata and whether the collection has products
+  
   const { items, total } = await getProductsByCollection({
     collectionHandle,
     page: 1,

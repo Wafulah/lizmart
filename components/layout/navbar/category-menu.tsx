@@ -4,7 +4,9 @@ import { ChevronDown, Menu, Phone, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import CategoriesDropdown from "./categories-dropdown";
+
+import ProfileDropdown from "@/components/ProfileDropdown";
+
 
 type NavCollection = {
   id: string;
@@ -38,7 +40,8 @@ const TOP_MENU: TopMenuItem[] = [
   { title: "SPORTS", path: "/search/sports?gender=sports", key: "sports" },
   { title: "SKIN CARE", path: "/search/skin-care?gender=skin", key: "skin" },
   { title: "CONTACT", path: "/contact-us" },
-  { title: "ABOUT US", path: "/about-us"}
+  { title: "ABOUT US", path: "/about-us"},
+
 ];
 
 /* ---------- helpers ---------- */
@@ -268,6 +271,7 @@ export default function FullCommerceNavbar({ collections }: { collections: NavCo
                         </Link>
                       </li>
                     ))}
+                    <ProfileDropdown />
                   </ul>
                 )}
               </li>
@@ -304,16 +308,11 @@ export default function FullCommerceNavbar({ collections }: { collections: NavCo
 
         {/* main nav */}
         <ul className="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-700 tracking-wide">
-           {/* <CategoriesDropdown
-      collections={collections as any[]}
-      isMobile={false}
-      openKey={openKey}
-      onOpen={openDropdown}
-      onClose={() => closeDropdownWithDelay()}
-    /> */}
+           
           {TOP_MENU.map((m) => {
             const key = m.key;
             const isOpen = key ? openKey === key : false;
+            
             if (key) {
               return (
                 <li key={m.title} className="relative" onMouseEnter={() => openDropdown(key)} onMouseLeave={() => closeDropdownWithDelay()}>
@@ -339,6 +338,7 @@ export default function FullCommerceNavbar({ collections }: { collections: NavCo
               );
             }
           })}
+          <ProfileDropdown />
         </ul>
 
         {/* right side phone */}

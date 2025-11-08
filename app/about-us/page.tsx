@@ -1,3 +1,4 @@
+import Footer from '@/components/layout/footer';
 import {
   CheckCircle,
   DollarSign,
@@ -272,7 +273,7 @@ export default function AboutUsPage() {
           </div>
         </div>
       </section>
-
+<Footer />
     </div>
   );
 }

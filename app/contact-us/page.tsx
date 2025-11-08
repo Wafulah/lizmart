@@ -1,3 +1,4 @@
+import Footer from '@/components/layout/footer';
 import { Mail, MapPin, Phone, MessageSquare } from 'lucide-react';
 import React from 'react';
 
@@ -168,6 +169,7 @@ export default function ContactUsPage() {
                     </p>
                 </div>
             </section>
+            <Footer />
         </div>
     );
 }

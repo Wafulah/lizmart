@@ -1,69 +1,146 @@
+import { ArrowRight, Mail, MapPin, Phone, ShoppingBag } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { getMenu } from '@/lib/neondb';
-import FooterMenu from 'components/layout/footer-menu';
-import { Suspense } from 'react';
 
-const { COMPANY_NAME, SITE_NAME } = process.env;
+const footerMenus = [
+    {
+      title: "Men's Health",
+      links: [
+        { name: 'Sexual Health', href: '/men-sexual-health' },
+        { name: 'Supplements', href: '/men-supplements' },
+        { name: 'Baldness & Hair Loss', href: '/men-baldness' },
+        { name: 'Prostate Care', href: '/men-prostate-care' },
+      ],
+    },
+    {
+      title: "Women's Health",
+      links: [
+        { name: 'Supplements', href: '/women-suppliments' },
+        { name: 'Menstrual Health', href: '/women-mentrual-health' },
+        { name: 'Fertility & Pregnancy', href: '/women-fertility-pregnancy' },
+        { name: 'Hormone Balance', href: '/women-hormone-balance' },
+      ],
+    },
+    {
+      title: 'Wellness & Lifestyle',
+      links: [
+        { name: 'Vitamins & Minerals', href: '/suppliments' },
+        { name: 'Pain & Inflammation', href: '/wellness-pain-inflammation' },
+        { name: 'Stress & Sleep', href: '/wellness-stress-sleep' },
+        { name: 'Digestive Health', href: '/wellness-digestive-health' },
+      ],
+    },
+    {
+      title: 'Information',
+      links: [
+        { name: 'About Lizmart', href: '/about-us' },
+        { name: 'FAQs', href: '/faqs' },
+        { name: 'Shipping & Returns', href: '/shipping-returns' },
+        { name: 'Terms & Conditions', href: '/terms-conditions' },
+      ],
+    },
+  ];
 
-export default async function Footer() {
-  const currentYear = new Date().getFullYear();
-  const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
-  const skeleton = 'w-full h-6 animate-pulse rounded-sm bg-neutral-200 dark:bg-neutral-700';
-  const menu = await getMenu('next-js-frontend-footer-menu');
-  const copyrightName = COMPANY_NAME || SITE_NAME || '';
 
-  return (
-    <footer className="text-sm text-neutral-500 dark:text-neutral-400">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 border-t border-neutral-200 px-6 py-12 text-sm md:flex-row md:gap-12 md:px-4 min-[1320px]:px-0 dark:border-neutral-700">
-        <div>
-          <Link className="flex items-center gap-2 text-black md:pt-1 dark:text-white" href="/">
-            <Image src="/logo.png" alt="Lizmart Naturals Logo" width="40" height="40" />
-            <span className="uppercase">{SITE_NAME}</span>
-          </Link>
-        </div>
-        <Suspense
-          fallback={
-            <div className="flex h-[188px] w-[200px] flex-col gap-2">
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
+const MockLogo = () => (
+    <div className="relative flex items-center justify-center w-10 h-10 bg-teal-400 rounded-full text-teal-900 font-bold text-lg">
+        <Image src="/logo.png" alt="Lizmart Logo" fill className='object-cover rounded-full' />
+    </div>
+);
+
+// --- MAIN FOOTER COMPONENT ---
+const Footer = () => {
+    const currentYear = new Date().getFullYear();
+    const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
+    const copyrightName = 'Lizmart Naturals'; 
+
+    return (
+        // Main footer color inspired by Kalonji.co.ke: deep, earthy teal/green
+        <footer className="text-sm bg-teal-900 text-teal-200 antialiased">
+            {/* Top Section: Logo, Contact, and Categories */}
+            <div className="mx-auto w-full max-w-7xl px-6 py-12 md:py-16">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
+
+                    {/* Column 1: Brand Info & Contact Button (Mobile: Full Width, Desktop: 3/12) */}
+                    <div className="md:col-span-3 space-y-6">
+                        {/* Logo and Name */}
+                        <Link className="flex items-center gap-3 text-white" href="/">
+                            <MockLogo />
+                            <span className="uppercase font-extrabold text-lg tracking-wider">LIZMART NATURALS</span>
+                        </Link>
+
+                        <p className="text-teal-300">
+                            Your trusted source for natural medicine and wellness products, delivered straight to your door.
+                        </p>
+
+                        {/* Contact Us Button */}
+                        <Link
+                            href="/contact-us"
+                            className="inline-flex items-center justify-center px-6 py-3 font-semibold text-teal-900 bg-teal-400 rounded-lg shadow-md hover:bg-teal-300 transition-colors duration-300"
+                        >
+                            Contact Us
+                            <ArrowRight className="w-5 h-5 ml-2" />
+                        </Link>
+
+                        {/* Social Icons Placeholder */}
+                        <div className="flex space-x-4 pt-2">
+                            <Link href="#" className="hover:text-teal-400 transition"><MapPin className="w-5 h-5" /></Link>
+                            <Link href="#" className="hover:text-teal-400 transition"><Mail className="w-5 h-5" /></Link>
+                            <Link href="#" className="hover:text-teal-400 transition"><Phone className="w-5 h-5" /></Link>
+                            {/* Adding Shopping Bag icon as relevant to commerce */}
+                            <Link href="/cart" className="hover:text-teal-400 transition"><ShoppingBag className="w-5 h-5" /></Link>
+                        </div>
+                    </div>
+
+                    {/* Column 2, 3, 4, 5: Category Links (Desktop: 9/12) */}
+                    <div className="md:col-span-9 grid grid-cols-2 md:grid-cols-4 gap-8">
+                        {footerMenus.map((menu, index) => (
+                            <div key={index} className="space-y-4">
+                                <h3 className="text-base font-bold uppercase tracking-wider text-teal-100 border-b border-teal-700 pb-2 mb-2">
+                                    {menu.title}
+                                </h3>
+                                <ul className="space-y-3">
+                                    {menu.links.map((item) => (
+                                        <li key={item.href}>
+                                            <Link
+                                                href={item.href}
+                                                // Link styling uses lighter text color with teal accent on hover
+                                                className="text-teal-300 hover:text-teal-400 transition-colors duration-200"
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+
+                </div>
             </div>
-          }
-        >
-          <FooterMenu menu={menu} />
-        </Suspense>
-        <div className="md:ml-auto">
-          {/* <a
-            className="flex h-8 w-max flex-none items-center justify-center rounded-md border border-neutral-200 bg-white text-xs text-black dark:border-neutral-700 dark:bg-black dark:text-white"
-            aria-label="Buy this Site"
-            href="https://www.mastertechsolutionscenter.com/"
-          >
-            <span className="px-3">▲</span>
-            <hr className="h-full border-r border-neutral-200 dark:border-neutral-700" />
-            <span className="px-3">Buy</span>
-          </a> */}
-        </div>
-      </div>
-      <div className="border-t border-neutral-200 py-6 text-sm dark:border-neutral-700">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-1 px-4 md:flex-row md:gap-0 md:px-4 min-[1320px]:px-0">
-          <p>
-            &copy; {copyrightDate} {copyrightName}
-            {copyrightName.length && !copyrightName.endsWith('.') ? '.' : ''} All rights reserved.
-          </p>
-          
-          
-          <p className="md:ml-auto">
-            <a href="https://www.mastertechsolutionscenter.com" className="text-black dark:text-white">
-              Created by Master Tech Solutions Center
-            </a>
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
-}
+
+            {/* Bottom Section: Copyright and Credits */}
+            <div className="border-t border-teal-800 bg-teal-950 py-6 text-xs">
+                <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-4 px-4 md:flex-row md:justify-between min-[1320px]:px-0">
+                    {/* Copyright (Keep 2023 - Current Year Logic) */}
+                    <p className="text-teal-500 order-2 md:order-1 text-center md:text-left">
+                        &copy; {copyrightDate} {copyrightName}. All rights reserved.
+                    </p>
+
+                    {/* Credit (Keep Master Tech Solutions) */}
+                    <p className="text-teal-400 order-1 md:order-2 text-center md:text-right">
+                        <Link
+                            href="https://www.mastertechsolutionscenter.com"
+                            className="font-medium hover:text-teal-300 transition-colors"
+                        >
+                            Created by Master Tech Solutions Center
+                        </Link>
+                    </p>
+                </div>
+            </div>
+        </footer>
+    );
+};
+
+export default Footer;

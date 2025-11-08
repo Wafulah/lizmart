@@ -1,4 +1,5 @@
 // prisma-provider.ts
+import { currentUser } from "@/lib/auth";
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '../prisma';
@@ -150,6 +151,7 @@ export async function addToCart(
   lines: { merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
   const cartIdCookie = (await cookies()).get('cartId')?.value;
+  const user = await currentUser();
   let cartRecord: any = null;
 
   if (!cartIdCookie) {
@@ -161,7 +163,8 @@ export async function addToCart(
         totalCurrency: 'KES',
         totalTaxAmount: '0.0',
         taxCurrency: 'KES',
-        totalQuantity: 0
+        totalQuantity: 0,
+        userId: user?.id ?? null,
       }
     });
   } else {
@@ -175,7 +178,8 @@ export async function addToCart(
           totalCurrency: 'KES',
           totalTaxAmount: 0.0,
           taxCurrency: 'KES',
-          totalQuantity: 0
+          totalQuantity: 0,
+          userId: user?.id ?? null,
         }
       });
     }

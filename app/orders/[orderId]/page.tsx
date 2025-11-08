@@ -1,8 +1,10 @@
-// app/orders/[orderId]/page.tsx
-import React from "react";
-import Link from "next/link";
-import { ArrowLeft, Clock, MapPin, CreditCard, Truck } from "lucide-react";
+export const dynamic = "force-dynamic"; 
+
+
 import { getOrderById } from "@/actions/api/orders";
+import Footer from "@/components/layout/footer";
+import { ArrowLeft, Clock, CreditCard, MapPin, Truck } from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 const COLORS = {
@@ -21,16 +23,16 @@ function numberToFixedSafe(n?: number | null, digits = 2) {
   return Number(n).toFixed(digits);
 }
 
-export default async function OrderDetailsPage({
-  params,
-}: {
-  params: { orderId: string };
-}) {
-  const { orderId } = params;
+interface PageProps {
+  params: Promise<{ orderId: string }>;
+}
+
+export default async function OrderDetailsPage({ params }: PageProps){
+  const { orderId } = await params;
 
   // fetch using your server action
   const order = await getOrderById(orderId);
-
+ //
   if (!order) return notFound();
 
   
@@ -89,7 +91,7 @@ export default async function OrderDetailsPage({
             <Clock size={16} color={COLORS.textMuted} />
             <div>
               <div style={{ fontWeight: 600, color: COLORS.textDark }}>Order from</div>
-              <div style={{ color: COLORS.textMuted }}>{firstItem?.productTitle ?? "—"}</div>
+              <div style={{ color: COLORS.textMuted }}>LizMart Naturals</div>
             </div>
           </div>
 
@@ -177,6 +179,7 @@ export default async function OrderDetailsPage({
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

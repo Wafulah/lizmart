@@ -43,7 +43,7 @@ const { items, totalPages } = productsResult;
   return (
     <>
     <PromotionSection />
-      {/* <ThreeItemGrid /> */}
+     
       <section className="bg-[#f0f4f8] ">
        <CollectionGrid
   title="Sexual Health"
@@ -68,7 +68,6 @@ const { items, totalPages } = productsResult;
 <FooterServices />
  </section>
 
-      {/* <Carousel /> */}
       <Footer />
     </>
   );

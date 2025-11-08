@@ -1,12 +1,13 @@
+import { getCollections } from "@/actions/api/get-collections";
 import FullCommerceNavbar from "@/components/layout/navbar/category-menu";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { getCart, getMenu } from '@/lib/neondb';
-import { getCollections } from "@/actions/api/get-collections";
 import { CartProvider } from 'components/cart/cart-context';
 import NavbarClient from "components/layout/navbar/NavbarClient";
 import { WelcomeToast } from 'components/welcome-toast';
 import { GeistSans } from 'geist/font/sans';
 import { baseUrl } from 'lib/utils';
+import { SessionProvider } from 'next-auth/react';
 import { ReactNode, Suspense } from "react";
 
 import { Toaster } from 'sonner';
@@ -31,7 +32,7 @@ export default async function RootLayout({
 }: {
   children: ReactNode;
 }) {
-  // Don't await the fetch, pass the Promise to the context provider
+  
   const cart = getCart();
   const menu = await getMenu("next-js-frontend-header-menu");
   const collections = await getCollections();
@@ -46,7 +47,9 @@ export default async function RootLayout({
                 <NavbarClient menu={menu} />
             </Suspense>
           <main>
+            <SessionProvider>
             <FullCommerceNavbar collections={collections} />
+            </SessionProvider>
             <div  className="my-6 w-full h-2"/>
             {children}
             <Toaster closeButton />

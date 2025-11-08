@@ -56,6 +56,7 @@ export async function PATCH(
       "seoId",
       "handle",
       "featured",
+      "gender"
     ] as const;
 
     // Build scalar data

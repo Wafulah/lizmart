@@ -20,6 +20,7 @@ const checkoutSchema = z.object({
   county: z.string().min(1, "County is required"),
   town: z.string().min(1, "Town is required"),
   mpesaNumber: z.string().min(1, "MPESA number is required"),
+  userId: z.string()
 });
 
 export async function OPTIONS(request: NextRequest) {
@@ -56,7 +57,7 @@ export async function POST(
     );
   }
 
-  const { fullName, email, phone, county, town, mpesaNumber } = parsed.data;
+  const { fullName, email, phone, county, town, mpesaNumber, userId } = parsed.data;
 
   // Fetch the cart by ID using prisma
   let cart;
@@ -103,6 +104,18 @@ export async function POST(
     );
   }
 
+  if (!cart.userId && userId) {
+  try {
+    await prisma.cart.update({
+      where: { id: cartId },
+      data: { userId },
+    });
+    cart.userId = userId; 
+  } catch (error) {
+    console.warn("Failed to update cart userId:", error);
+  }
+}
+
   try {
     // Save address (shipping) information
     const addressRecord = await prisma.address.create({
@@ -113,7 +126,7 @@ export async function POST(
         county,
         town,
         mpesaNumber,
-        userId: cart.userId ?? undefined,
+        userId
       },
     });
 
@@ -121,7 +134,7 @@ export async function POST(
  const order = await prisma.order.create({
   data: {
     orderNumber: uuidv4(),
-    userId: cart.userId ?? undefined,
+    userId: userId,
     shippingAddressId: addressRecord.id,
     status: "PENDING",
     paymentStatus: "PENDING",
