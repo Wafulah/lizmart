@@ -4,6 +4,7 @@
 import { ArrowLeft, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import React from 'react';
+import Footer from "./layout/footer";
 
 const COLORS = {
   primary: "#1A7431",
@@ -259,6 +260,7 @@ function OrderCard({ order }: { order: Order }) {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

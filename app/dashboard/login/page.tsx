@@ -1,5 +1,6 @@
 import { auth } from "@/auth/auth.node";
 import { SignIn } from "@/components/auth/sign-in";
+import Footer from "@/components/layout/footer";
 import { redirect } from "next/navigation";
 
 
@@ -68,6 +69,7 @@ export default async function LoginPage({ searchParams }: PageProps) {
           </SignIn>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

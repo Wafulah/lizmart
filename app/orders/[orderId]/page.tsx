@@ -1,10 +1,10 @@
 export const dynamic = "force-dynamic"; 
 
 
-import React from "react";
-import Link from "next/link";
-import { ArrowLeft, Clock, MapPin, CreditCard, Truck } from "lucide-react";
 import { getOrderById } from "@/actions/api/orders";
+import Footer from "@/components/layout/footer";
+import { ArrowLeft, Clock, CreditCard, MapPin, Truck } from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 const COLORS = {
@@ -179,6 +179,7 @@ export default async function OrderDetailsPage({ params }: PageProps){
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

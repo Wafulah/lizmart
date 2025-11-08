@@ -32,7 +32,7 @@ export default async function RootLayout({
 }: {
   children: ReactNode;
 }) {
-  // Don't await the fetch, pass the Promise to the context provider
+  
   const cart = getCart();
   const menu = await getMenu("next-js-frontend-header-menu");
   const collections = await getCollections();
