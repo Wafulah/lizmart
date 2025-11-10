@@ -17,9 +17,13 @@ const patchSchema = z.object({
   relatedProductIds: z.array(z.string()).optional().default([]),
 });
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+
   try {
-    const { id } = params;
+    const { id } = await params;
     if (!id) return NextResponse.json({ message: "Missing id" }, { status: 400 });
 
     const body = await req.json();
