@@ -114,11 +114,13 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
 }
 
 export async function DELETE(
-  req: Request, 
-  { params }: { params: { id: string } }
+  req: Request,
+  { params }: { params:  Promise<{ id: string }> }
 ) {
+
   try {
-    const { id } = params;
+    const { id } = await params;
+    
     if (!id) return NextResponse.json({ message: "Missing id" }, { status: 400 });
 
     // find topic and seoId (so we can optionally delete SEO)
