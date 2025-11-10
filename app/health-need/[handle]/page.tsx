@@ -1,18 +1,25 @@
-// app/health-need/[handle]/page.tsx (Server Component)
 
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import { getHealthTopicByHandle, getProductsByTopicId } from "@/actions/api/get-health-topic";
 import { Heading } from "@/components/ui/dashboard/heading";
 import { Separator } from "@/components/ui/separator";
-import ProductGrid from "@/components/grid/product-grid"; // Assuming this component exists
+import ProductGrid from "@/components/grid/related-product-grid"; 
+import { Metadata } from "next";
 
 interface TopicDetailPageProps {
   params: { handle: string };
   searchParams: { page?: string };
 }
 
-export async function generateMetadata({ params }: TopicDetailPageProps) {
+
+
+export async function generateMetadata(props: {
+  params: Promise<{ handle: string }>;
+}): Promise<Metadata> {
+  const params = await props.params;
+  
+
   const topic = await getHealthTopicByHandle(params.handle);
 
   if (!topic) {
@@ -28,7 +35,12 @@ export async function generateMetadata({ params }: TopicDetailPageProps) {
   };
 }
 
-export default async function TopicDetailPage({ params, searchParams }: TopicDetailPageProps) {
+export default async function TopicDetailPage(props: { params: Promise<{ handle: string }>; 
+    searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+
+  const params = await props.params;
+  const searchParams = (await props.searchParams) || {};
   const page = Number(searchParams.page || 1);
   const perPage = 12;
 
@@ -69,12 +81,14 @@ export default async function TopicDetailPage({ params, searchParams }: TopicDet
         <h2 className="text-2xl font-bold text-teal-700 mb-6">Related Products</h2>
         
         {items.length > 0 ? (
-          // Using your existing ProductGrid component
+         
           <ProductGrid 
             items={items} 
             currentPage={page} 
             totalPages={totalPages} 
+            title={topic.title}
           />
+          
         ) : (
           <div className="text-center py-8 text-gray-500 border border-dashed rounded-lg">
             No specific products are linked to this topic yet.
