@@ -113,7 +113,10 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(
+  req: Request, 
+  { params }: { params: { id: string } }
+) {
   try {
     const { id } = params;
     if (!id) return NextResponse.json({ message: "Missing id" }, { status: 400 });
@@ -131,6 +134,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     ops.push(prisma.healthTopic.delete({ where: { id } }));
 
     // Optionally delete SEO row (if you want to clean up orphan SEO rows)
+    // Use deleteMany because prisma.sEO.delete requires the unique key to be found first
     if (topic.seoId) {
       ops.push(prisma.sEO.deleteMany({ where: { id: topic.seoId } }));
     }
