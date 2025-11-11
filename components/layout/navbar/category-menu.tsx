@@ -39,7 +39,7 @@ const PHONE_NUMBER = "011 750 5979";
 const TOP_MENU: TopMenuItem[] = [
   { title: "HOME", path: "/" },
   // --- ADDED HEALTH TOPICS TAB ---
-  { title: "BY HEALTH NEED", path: "/search/health", key: "health-topics" },
+  { title: "BY HEALTH NEED", path: "/health-need", key: "health-topics" },
   // ---------------------------------
   { title: "UNISEX", path: "/search", key: "categories" }, // shows general
   { title: "MEN", path: "/search/men", key: "men" },
