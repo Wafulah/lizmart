@@ -44,8 +44,8 @@ const TOP_MENU: TopMenuItem[] = [
   { title: "UNISEX", path: "/search", key: "categories" }, // shows general
   { title: "MEN", path: "/search/men", key: "men" },
   { title: "WOMEN", path: "/search/ladies", key: "women" },
-  { title: "SPORTS", path: "/search/dermatological-health", key: "dermatological-health" },
-  { title: "SKIN CARE", path: "/search/skin-care?gender=skin", key: "skin" },
+  { title: "SPORTS", path: "/search/sports?gender=general", key: "sports" },
+  { title: "SKIN CARE", path: "/search/dermatological-health?gender=general", key: "dermatological-health" },
   { title: "ABOUT US", path: "/about-us" },
 ];
 
