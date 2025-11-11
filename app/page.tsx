@@ -49,7 +49,7 @@ const { items, totalPages } = productsResult;
   title=" Male Libido Enhancements"
   description="Explore our carefully curated sexual health products for men and women."
   items={sexualHealthItems}
-  collectionHandle="men-sexual-health"
+  collectionHandle="male-enhancement"
 />
 </section>
       <ProductGrid items={items} currentPage={page} totalPages={totalPages} />
