@@ -118,7 +118,7 @@ export default function CollectionGrid({
       {items.length > 8 && (
         <div className="mt-6 text-right">
           <Link
-            href={`/collection/${collectionHandle}`}
+            href={`/search/${collectionHandle}`}
             className="text-[#FBC02D] font-semibold hover:underline"
           >
             View More →
