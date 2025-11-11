@@ -18,7 +18,7 @@ export function WelcomeToast() {
           <>
            Your Health Your Wealth.Invest in your future Today{' '}
             <a
-              href="https://vercel.com/templates/next.js/nextjs-commerce"
+              href="https://lizmartnaturals.co.ke"
               className="text-blue-600 hover:underline"
               target="_blank"
             >
