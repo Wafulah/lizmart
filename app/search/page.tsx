@@ -36,7 +36,7 @@ export default async function SearchPage(props: {
 
       {items.length > 0 ? (
         <div >
-          <ProductGrid items={items} currentPage={page} totalPages={totalPages} />
+          <ProductGrid items={items} currentPage={page} totalPages={totalPages} searchParams={{ q: searchValue, sort: sort ?? undefined }} />
         </div>
       ) : null}
     </>

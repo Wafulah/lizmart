@@ -64,7 +64,7 @@ export default async function CategoryPage(props: {
       {items.length === 0 ? (
         <p className="py-3 text-lg">No products found in this collection</p>
       ) : (
-        <ProductGrid items={items} currentPage={page} totalPages={totalPages} collection={collection} />
+        <ProductGrid items={items} currentPage={page} totalPages={totalPages} searchParams={{ ...searchParams, collection }} />
       )}
     </section>
   );

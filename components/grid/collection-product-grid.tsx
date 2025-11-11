@@ -23,14 +23,27 @@ export type Product = {
 export default function ProductGrid({
   items,
   currentPage,
-  totalPages,
-  collection,
+  totalPages,  
+  searchParams = {},
 }: {
   items: Product[];
   currentPage?: number;
-  totalPages?: number;
-  collection: string;
+  totalPages?: number;  
+  searchParams?: Record<string, string | undefined>;
 }) {
+
+  const buildHref = (pageNum: number) => {
+    const params = new URLSearchParams();
+
+    Object.entries(searchParams).forEach(([key, value]) => {
+      if (value !== undefined && key !== "page") params.set(key, value);
+    });
+
+    params.set("page", String(pageNum));
+
+    return `/collection/${searchParams.collection ?? ""}?${params.toString()}`;
+  };
+
   return (
     <section className="mx-auto max-w-7xl px-4 py-8 mt-16 md:mt-24 mb-24">
       <h1 className="text-5xl md:text-6xl font-extrabold text-[#1D7A39] mb-6">
@@ -128,7 +141,7 @@ export default function ProductGrid({
         <div className="mt-8 flex justify-center gap-4">
           {currentPage && currentPage > 1 && (
             <Link
-              href={`/search/${collection}?page=${currentPage - 1}`}
+              href={buildHref(currentPage - 1)}
               className="rounded-md border px-3 py-1 text-sm hover:bg-neutral-100"
             >
               ← Previous
@@ -139,7 +152,7 @@ export default function ProductGrid({
           </span>
           {currentPage && totalPages && currentPage < totalPages && (
             <Link
-              href={`/search/${collection}?page=${currentPage + 1}`}
+              href={buildHref(currentPage + 1)}
               className="rounded-md border px-3 py-1 text-sm hover:bg-neutral-100"
             >
               Next →
