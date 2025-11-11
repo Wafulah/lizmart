@@ -105,8 +105,8 @@ function collectionsForKey(
       (c) =>
         c.handle?.toLowerCase().includes("dermatolog") ||
         c.title?.toLowerCase().includes("dermatolog") ||
-        c.handle?.toLowerCase().includes("skin") ||
-        c.title?.toLowerCase().includes("skin")
+        c.handle?.toLowerCase().includes("personal") ||
+        c.title?.toLowerCase().includes("personal")
     );
   }
 
