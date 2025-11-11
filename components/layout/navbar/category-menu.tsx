@@ -99,10 +99,12 @@ function collectionsForKey(
     );
   }
 
-  if (key === "skin") {
-    // SKIN CARE: keyword-based
+  if (key === "dermatological-health") {
+    // DERMATOLOGICAL HEALTH: keyword-based
     return all.filter(
       (c) =>
+        c.handle?.toLowerCase().includes("dermatolog") ||
+        c.title?.toLowerCase().includes("dermatolog") ||
         c.handle?.toLowerCase().includes("skin") ||
         c.title?.toLowerCase().includes("skin")
     );
