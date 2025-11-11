@@ -128,7 +128,7 @@ export default function ProductGrid({
         <div className="mt-8 flex justify-center gap-4">
           {currentPage && currentPage > 1 && (
             <Link
-              href={`/search/${collection}/?page=${currentPage - 1}`}
+              href={`/search/${collection}?page=${currentPage - 1}`}
               className="rounded-md border px-3 py-1 text-sm hover:bg-neutral-100"
             >
               ← Previous
@@ -139,7 +139,7 @@ export default function ProductGrid({
           </span>
           {currentPage && totalPages && currentPage < totalPages && (
             <Link
-              href={`/?page=${currentPage + 1}`}
+              href={`/search/${collection}?page=${currentPage + 1}`}
               className="rounded-md border px-3 py-1 text-sm hover:bg-neutral-100"
             >
               Next →
