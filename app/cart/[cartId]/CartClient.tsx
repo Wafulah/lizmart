@@ -55,7 +55,7 @@ export default function CartClient({ cart, userId }: CartClientProps) {
   const handleWhatsappOrder = () => {
     if (!cart) return;
 
-    // Construct the order message
+    // 1. Construct the order items list with standard newlines (\n)
     const orderItems = cart.lines
       .map((line) => {
         const title = line.merchandise.product.title;
@@ -69,11 +69,22 @@ export default function CartClient({ cart, userId }: CartClientProps) {
       .join("\n");
 
     const total = `${cart.cost.totalAmount.amount} ${cart.cost.totalAmount.currencyCode}`;
-    const message = `Hello, I'd like to place an order!%0A%0A*My Cart Details:*%0A${encodeURIComponent(
-      orderItems
-    )}%0A%0A*Total Amount:* ${total}%0A%0A*Please send me a payment link / details.*`;
 
-    const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${message}`;
+    // 2. Construct the full message string using standard newlines (\n)
+    // The * will be preserved as bold in WhatsApp since we encode the whole string later
+    const rawMessage = `Hello, I'd like to place an order!
+
+*My Cart Details:*
+${orderItems}
+
+*Total Amount:* ${total}
+
+*Please send me a payment link / details.*`;
+    
+    // 3. Encode the ENTIRE raw message for the URL
+    const encodedMessage = encodeURIComponent(rawMessage);
+
+    const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodedMessage}`;
 
     // Open WhatsApp link in a new tab
     window.open(whatsappUrl, "_blank");
