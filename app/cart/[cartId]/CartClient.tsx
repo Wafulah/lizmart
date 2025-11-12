@@ -50,6 +50,35 @@ export default function CartClient({ cart, userId }: CartClientProps) {
     );
   }
 
+  const WHATSAPP_PHONE_NUMBER = "254117505979";
+  // **NEW: Function to handle WhatsApp order**
+  const handleWhatsappOrder = () => {
+    if (!cart) return;
+
+    // Construct the order message
+    const orderItems = cart.lines
+      .map((line) => {
+        const title = line.merchandise.product.title;
+        const options = line.merchandise.selectedOptions
+          ?.map((opt) => `${opt.name}: ${opt.value}`)
+          .join(", ");
+        const quantity = line.quantity;
+        const price = `${line.cost.totalAmount.amount} ${line.cost.totalAmount.currencyCode}`;
+        return `- ${title}${options ? ` (${options})` : ""} x ${quantity} (${price})`;
+      })
+      .join("\n");
+
+    const total = `${cart.cost.totalAmount.amount} ${cart.cost.totalAmount.currencyCode}`;
+    const message = `Hello, I'd like to place an order!%0A%0A*My Cart Details:*%0A${encodeURIComponent(
+      orderItems
+    )}%0A%0A*Total Amount:* ${total}%0A%0A*Please send me a payment link / details.*`;
+
+    const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${message}`;
+
+    // Open WhatsApp link in a new tab
+    window.open(whatsappUrl, "_blank");
+  };
+
 
   // Handle address form submission
   const handleAddressSubmit = async (data: {
@@ -172,6 +201,12 @@ export default function CartClient({ cart, userId }: CartClientProps) {
   >
     Enter Address & Pay
   </Button>
+  <Button
+                className="w-full bg-green-500 hover:bg-green-600 text-white"
+                onClick={handleWhatsappOrder}
+              >
+                Order via WhatsApp
+              </Button>
 </CardFooter>
           </Card>
         ) : userId ? (
