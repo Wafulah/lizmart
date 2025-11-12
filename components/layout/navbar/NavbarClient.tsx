@@ -35,11 +35,15 @@ export default function NavbarClient({ menu }: Props) {
             prefetch={true}
             className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
           >
-            <Image src="/logo.png" alt="Lizmart Naturals Logo" width="80" height="80" className="rounded-full" />
-            <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
+            <Image src="/logo.webp" alt="Lizmart Naturals Logo" width="80" height="80" className="rounded-md" />
+            <div className="ml-2 flex-none text-sm font-medium uppercase hidden sm:hidden md:hidden lg:block">
              Lizmart Naturals
             </div>
           </Link>
+          <Link href="/" prefetch={true}
+            className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6 mt-5" >
+          <Image src="/till.webp" alt="Lizmart Naturals Logo" width="130" height="130" />
+        </Link>
 
           {menu.length ? (
             <ul className="hidden gap-6 text-sm md:flex md:items-center">
