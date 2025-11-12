@@ -56,7 +56,8 @@ export async function PATCH(
       "seoId",
       "handle",
       "featured",
-      "gender"
+      "gender",
+
     ] as const;
 
     // Build scalar data
@@ -100,6 +101,9 @@ export async function PATCH(
     const imagesPayload = Array.isArray(p.images) ? p.images : null;
     const variantsPayload = Array.isArray(p.variants) ? p.variants : null;
     const collectionsPayload = Array.isArray(p.collectionIds) ? p.collectionIds : null;
+
+    const healthTopicIdsPayload = Array.isArray(p.healthTopicIds) ? p.healthTopicIds : null;
+
     const clientProvidedFeaturedImageId = Object.prototype.hasOwnProperty.call(p, "featuredImageId");
 
     // Basic validation for provided payloads
@@ -119,7 +123,7 @@ export async function PATCH(
     }
 
     // If no relational changes -- do a simple scalar update and return
-    if (!imagesPayload && !variantsPayload && !collectionsPayload) {
+    if (!imagesPayload && !variantsPayload && !collectionsPayload && !healthTopicIdsPayload) {
       const updated = await prisma.product.update({
         where: { id: productId },
         data: dataScalars,
@@ -129,6 +133,7 @@ export async function PATCH(
           featuredImage: true,
           seo: true,
           CollectionProduct: { include: { collection: true } },
+          healthTopics: { include: { healthTopic: true } }
         },
       });
       return NextResponse.json(updated, { status: 200 });
@@ -215,6 +220,23 @@ export async function PATCH(
 
       if (variantsToCreate.length > 0) {
         await prisma.productVariant.createMany({ data: variantsToCreate });
+      }
+    }
+
+    if (healthTopicIdsPayload !== null) {
+      // Delete old joins
+      await prisma.healthTopicProduct.deleteMany({ where: { productId } }); 
+
+      if (healthTopicIdsPayload.length > 0) {
+        const createJoins = healthTopicIdsPayload.map((healthTopicId: string) => ({
+          healthTopicId,
+          productId,
+        }));
+        
+        await prisma.healthTopicProduct.createMany({
+          data: createJoins,
+          skipDuplicates: true,
+        });
       }
     }
 

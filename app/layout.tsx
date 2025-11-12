@@ -45,7 +45,7 @@ export default async function RootLayout({
 
 
   return (
-    <html lang="en" className={GeistSans.variable}>
+    <html lang="en" className={`${GeistSans.variable} light`}>
       <body className={`${GeistSans.variable} bg-neutral-50 text-black selection:bg-teal-300`}>
         <ThemeProvider>
         <CartProvider cartPromise={cart}>

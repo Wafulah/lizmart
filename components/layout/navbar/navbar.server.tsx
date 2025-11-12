@@ -1,4 +1,4 @@
-// components/layout/navbar/Navbar.server.tsx
+
 import Link from "next/link";
 import Image from "next/image";
 import type { Menu } from "@/lib/neondb/types";
@@ -8,7 +8,7 @@ type NavbarProps = {
 };
 
 export function NavbarServer({ menu }: NavbarProps) {
-  const SITE_NAME = process.env.SITE_NAME || "";
+  
 
   return (
     <nav className="relative flex items-center justify-between p-4 lg:px-6">
@@ -19,7 +19,7 @@ export function NavbarServer({ menu }: NavbarProps) {
         <Link href="/" prefetch>
           <Image src="/logo.png" alt="Lizmart Naturals Logo" width="40" height="40" />
           <div className="ml-2 text-sm font-medium uppercase md:hidden lg:block">
-            {SITE_NAME}
+            Lizmart Naturals
           </div>
         </Link>
         <ul className="hidden gap-6 text-sm md:flex md:items-center">

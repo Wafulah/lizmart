@@ -19,8 +19,7 @@ export default function NavbarClient({ menu }: Props) {
   // hide on admin dashboard
   if (pathname.startsWith("/dashboard/admin")) return null;
 
-  const SITE_NAME = process.env.SITE_NAME ?? "";
-
+  
   return (
     <nav className="relative flex items-center justify-between p-4 lg:px-6">
       <div className="block flex-none md:hidden">
@@ -38,7 +37,7 @@ export default function NavbarClient({ menu }: Props) {
           >
             <Image src="/logo.png" alt="Lizmart Naturals Logo" width="80" height="80" className="rounded-full" />
             <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
-              {SITE_NAME}
+             Lizmart Naturals
             </div>
           </Link>
 
