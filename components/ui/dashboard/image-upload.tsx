@@ -35,33 +35,24 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 
   // Called by the Cloudinary widget for each upload result
   const onUpload = (result: any) => {
-    // result shape can vary; handle common cases
-    const info = result?.info ?? result;
-    if (!info) return;
+  // Normalize result shape (Cloudinary can call multiple times with nested info)
+  const info = result?.info ?? result;
+  if (!info) return;
 
-    const newUrls: string[] = [];
 
-    // single-file
-    if (typeof info.secure_url === "string") newUrls.push(info.secure_url);
+  // We'll only handle when the secure_url exists
+  const uploadedUrl = info.secure_url || info.url;
+  if (!uploadedUrl) return;
 
-    // sometimes widget may expose an array (secure_urls or similar)
-    if (Array.isArray(info.secure_urls)) newUrls.push(...info.secure_urls);
+  setLocalUrls((prev) => {
+    // Prevent duplicates (Cloudinary often triggers twice)
+    if (prev.includes(uploadedUrl)) return prev;
 
-    // defensive: some wrappers return result.info.url
-    if (typeof info.url === "string" && !newUrls.includes(info.url))
-      newUrls.push(info.url);
-
-    if (newUrls.length === 0) return;
-
-    // functional update to avoid race conditions when multiple onUpload callbacks fire quickly
-    setLocalUrls((prev) => {
-      const merged = [...prev, ...newUrls];
-      // remove duplicates (optional)
-      const unique = Array.from(new Set(merged));
-      onChange(unique); // send full updated list to parent
-      return unique;
-    });
-  };
+    const updated = [...prev, uploadedUrl];
+    onChange(updated);
+    return updated;
+  });
+};
 
   const handleRemove = (url: string) => {
     setLocalUrls((prev) => {
