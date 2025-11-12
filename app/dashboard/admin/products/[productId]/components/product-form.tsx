@@ -273,7 +273,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, collectio
                   <ImageUpload 
                     value={field.value.map((image) => image.url)} 
                     disabled={loading} 
-                    onChange={(url) => field.onChange([...field.value, { url }])}
+                    onChange={(newUrls: string[]) => {
+  const newImageObjects = newUrls.map(url => ({ url }));
+  field.onChange(newImageObjects);
+}}
                     onRemove={(url) => field.onChange([...field.value.filter((current) => current.url !== url)])}
                   />
                 </FormControl>
