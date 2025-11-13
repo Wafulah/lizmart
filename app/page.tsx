@@ -28,10 +28,11 @@ export default async function HomePage({
 
   const perPage = 12;
 
-const [productsResult, sexualHealthItems, supplimentItems, featuredProducts] = await Promise.all([
+const [productsResult, sexualHealthItems, supplimentItems,generalWellness, featuredProducts] = await Promise.all([
   getProducts({ page, perPage }),
   getProductsByCollection({ collectionHandle: "male-enhancement", limit: 9 }),
   getProductsByCollection({ collectionHandle: "supplements", limit: 9}),
+  getProductsByCollection({ collectionHandle: "general-wellness", limit: 9 }),
   getFeaturedProducts(8),
 ]);
 
@@ -62,6 +63,12 @@ const { items, totalPages } = productsResult;
 />
 <FeaturedProductsSection
   products={featuredProducts}
+/>
+ <CollectionGrid
+  title="General Wellness"
+  description="Discover our curated collection of essential vitamins, minerals, and supplements designed to support your overall well-being. From boosting immunity and energy levels to maintaining daily balance, we provide the natural building blocks you need to live healthier, every day."
+  items={generalWellness}
+  collectionHandle="general-wellness"
 />
 <TrustBanner />
  <section className="bg-[#f0f4f8] ">
