@@ -170,6 +170,7 @@ export default function FullCommerceNavbar({
               onClick={(e) => {
                 /* nothing else required — Link handles navigation */
               }}
+              prefetch={false}
             >
               {ch.title}
             </Link>
@@ -216,6 +217,7 @@ export default function FullCommerceNavbar({
                       setOpenKey(null);
                       setIsDrawerOpen(false);
                     }}
+                    prefetch={false}
                   >
                     {topic.title}
                   </Link>
@@ -271,6 +273,7 @@ export default function FullCommerceNavbar({
                       <Link
                         href={`/search/${cat.handle}`}
                         className="text-sm text-gray-700 hover:text-teal-600"
+                        prefetch={false}
                       >
                         View {cat.title}
                       </Link>
@@ -332,6 +335,7 @@ export default function FullCommerceNavbar({
                               href={`/search/health/${topic.handle}`}
                               className="text-sm block py-1 text-gray-700 hover:text-teal-600"
                               onClick={() => setIsDrawerOpen(false)}
+                              prefetch={false}
                             >
                               {topic.title}
                             </Link>
@@ -357,6 +361,7 @@ export default function FullCommerceNavbar({
                                   <Link
                                     href={`/search/${ch.handle}`}
                                     className="text-sm block py-1 text-gray-700 hover:text-teal-600"
+                                    prefetch={false}
                                   >
                                     {ch.title}
                                   </Link>
@@ -369,6 +374,7 @@ export default function FullCommerceNavbar({
                                           <Link
                                             href={`/search/${sub.handle}`}
                                             className="text-xs block py-1 text-gray-600 hover:text-teal-500"
+                                            prefetch={false}
                                           >
                                             {sub.title}
                                           </Link>
@@ -440,6 +446,7 @@ export default function FullCommerceNavbar({
   onClick={() => {      
       setOpenKey(null); 
   }}
+  prefetch={false}
 >
                     <span>{m.title}</span>
                     <ChevronDown
@@ -458,6 +465,7 @@ export default function FullCommerceNavbar({
                   <Link
                     href={m.path || "/"}
                     className="py-3 px-2 hover:text-teal-600 transition duration-150"
+                    prefetch={false}
                   >
                     {m.title}
                   </Link>

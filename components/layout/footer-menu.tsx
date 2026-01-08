@@ -24,6 +24,7 @@ export function FooterMenuItem({ item }: { item: Menu }) {
             'text-black dark:text-neutral-300': active
           }
         )}
+        prefetch={false}
       >
         {item.title}
       </Link>

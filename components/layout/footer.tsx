@@ -90,7 +90,7 @@ const Footer = () => {
                             <Link href="#" className="hover:text-teal-400 transition"><Mail className="w-5 h-5" /></Link>
                             <Link href="#" className="hover:text-teal-400 transition"><Phone className="w-5 h-5" /></Link>
                             {/* Adding Shopping Bag icon as relevant to commerce */}
-                            <Link href="/cart" className="hover:text-teal-400 transition"><ShoppingBag className="w-5 h-5" /></Link>
+                            <Link href="/cart" className="hover:text-teal-400 transition" prefetch={false}><ShoppingBag className="w-5 h-5" /></Link>
                         </div>
                     </div>
 
@@ -108,6 +108,7 @@ const Footer = () => {
                                                 href={item.href}
                                                 // Link styling uses lighter text color with teal accent on hover
                                                 className="text-teal-300 hover:text-teal-400 transition-colors duration-200"
+                                                prefetch={false}
                                             >
                                                 {item.name}
                                             </Link>
@@ -134,6 +135,7 @@ const Footer = () => {
                         <Link
                             href="https://www.mastertechsolutionscenter.com"
                             className="font-medium hover:text-teal-300 transition-colors"
+                            prefetch={false}
                         >
                             Created by Master Tech Solutions Center
                         </Link>

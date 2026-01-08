@@ -28,7 +28,7 @@ export function NavbarServer({ menu }: NavbarProps) {
         <ul className="hidden gap-6 text-sm md:flex md:items-center">          
           {menu.map((item) => (
             <li key={item.title}>
-              <Link href={item.path} prefetch>
+              <Link href={item.path} prefetch={false}>
                 {item.title}
               </Link>
             </li>
