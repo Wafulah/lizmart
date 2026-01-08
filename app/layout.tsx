@@ -1,5 +1,6 @@
 import { getCollections } from "@/actions/api/get-collections";
 import { getHealthTopics } from "@/actions/api/get-health-topics";
+import { getServerSession } from "next-auth";
 import FullCommerceNavbar from "@/components/layout/navbar/category-menu";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { getCart, getMenu } from '@/lib/neondb';
@@ -42,7 +43,7 @@ export default async function RootLayout({
     getCollections(),
     getHealthTopics(), 
   ]);
-
+  const session = await getServerSession();
   
 
 
@@ -55,7 +56,11 @@ export default async function RootLayout({
                 <NavbarClient menu={menu} />
             </Suspense>
           <main>
-            <SessionProvider>
+            <SessionProvider
+  session={session}
+  refetchOnWindowFocus={false}  
+  refetchInterval={0}           
+>
             <FullCommerceNavbar collections={collections} healthTopics={healthTopics} />
             </SessionProvider>
             <div  className="my-6 w-full h-2"/>
