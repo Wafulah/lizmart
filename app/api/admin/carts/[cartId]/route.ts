@@ -1,7 +1,7 @@
 // app/api/carts/[cartId]/route.ts
-import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { Decimal } from "@prisma/client/runtime/library.js"; // used for safe sums
+import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = 'nodejs';
 

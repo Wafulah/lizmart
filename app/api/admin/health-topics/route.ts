@@ -1,6 +1,6 @@
 // app/api/admin/health-topics/route.ts
-import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { NextResponse } from "next/server";
 import * as z from "zod";
 
 export const runtime = 'nodejs';
