@@ -77,6 +77,7 @@ export default function ProfileDropdown() {
               <Link
                 href="/dashboard/login"
                 className="block px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-teal-50"
+                
               >
                 Login
               </Link>

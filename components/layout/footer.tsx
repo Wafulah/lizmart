@@ -7,29 +7,30 @@ const footerMenus = [
     {
       title: "Men's Health",
       links: [
-        { name: 'Sexual Health', href: '/men-sexual-health' },
-        { name: 'Supplements', href: '/men-supplements' },
-        { name: 'Baldness & Hair Loss', href: '/men-baldness' },
-        { name: 'Prostate Care', href: '/men-prostate-care' },
+        { name: 'Sexual Health', href: '/search/male-enhancement' },
+        { name: 'Supplements', href: '/search/men-supplements' },
+        { name: 'Baldness & Hair Loss', href: '/health-need/skin-hair-nails' },
+        { name: 'Prostate Care', href: '/health-need/prostate-care' },
       ],
     },
     {
       title: "Women's Health",
       links: [
-        { name: 'Supplements', href: '/women-suppliments' },
-        { name: 'Menstrual Health', href: '/women-mentrual-health' },
-        { name: 'Fertility & Pregnancy', href: '/women-fertility-pregnancy' },
-        { name: 'Hormone Balance', href: '/women-hormone-balance' },
+        { name: 'Supplements', href: '/search/ladies-suppliments' },
+        { name: 'Menstrual Health', href: '/search/female-enhancement' },
+        { name: 'Fertility & Pregnancy', href: '/health-need/female-fertility' },
+        { name: 'Hormone Balance', href: '/health-need/female-hormone-balance' },
       ],
     },
     {
       title: 'Wellness & Lifestyle',
       links: [
         { name: 'By Health Needs', href: '/health-need'},
-        { name: 'Vitamins & Minerals', href: '/suppliments' },
-        { name: 'Pain & Inflammation', href: '/wellness-pain-inflammation' },
-        { name: 'Stress & Sleep', href: '/wellness-stress-sleep' },
-        { name: 'Digestive Health', href: '/wellness-digestive-health' },
+        { name: 'Vitamins & Minerals', href: '/health-need/vitamins' },
+        { name: 'Joints & Bones', href: '/health-need/joins-bones' },
+        { name: 'Stress & Sleep', href: '/health-need/brain-function' },
+        { name: 'Digestive Health', href: '/health-need/digestion' },
+        { name: 'Weight Management', href: '/health-need/weight-management' },
       ],
     },
     {
