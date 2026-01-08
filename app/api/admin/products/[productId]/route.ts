@@ -4,6 +4,8 @@ import { updateProductSchema } from "@/schemas/product-api";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
+export const runtime = 'nodejs';
+
 export async function GET(
   req: Request,
   { params }: { params: Promise<{ productId: string }>}

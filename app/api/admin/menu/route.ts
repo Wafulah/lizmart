@@ -4,6 +4,8 @@ import { createMenuSchema } from "@/schemas/menu";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
+export const runtime = 'nodejs';
+
 export async function GET(req: Request) {
   try {
     const items = await prisma.menu.findMany({ orderBy: { createdAt: "desc" } });

@@ -4,6 +4,8 @@ import { addCartItemSchema } from "@/schemas/cart";
 import { z } from "zod";
 import { Decimal } from "@prisma/client/runtime/library";
 
+export const runtime = 'nodejs';
+
 export async function POST(req: Request, context: { params: Promise<{ cartId: string }> }) {
   try {
     const body = await req.json();

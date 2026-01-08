@@ -3,6 +3,8 @@ import { createShipmentSchema } from "@/schemas/order";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
+export const runtime = 'nodejs';
+
 // Fixed handler signatures to the Next.js App Router expected shape:
 // (req: Request, { params }: { params: Promise<{ orderId: string }>})
 

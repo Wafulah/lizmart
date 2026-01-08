@@ -3,6 +3,8 @@ import prisma from "@/lib/prisma";
 import { z } from "zod";
 import { Decimal } from "@prisma/client/runtime/library.js"; // used for safe sums
 
+export const runtime = 'nodejs';
+
 export async function GET(req: Request, { params }: { params: Promise<{ cartId: string }> }) {
   try {
     const { cartId } = await params;

@@ -2,6 +2,8 @@
 import { getOrdersByDate } from "@/actions/getUndeliveredOrders"; // your server helper
 import { NextResponse } from "next/server";
 
+export const runtime = 'nodejs';
+
 export async function GET(req: Request) {
   try {
     const url = new URL(req.url);

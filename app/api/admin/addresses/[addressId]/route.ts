@@ -4,6 +4,8 @@ import { addressInputSchema } from "@/schemas/order";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
+export const runtime = 'nodejs';
+
 interface Params { params: { addressId: string } }
 
 export async function GET(req: Request, ctx: { params: Promise<{ addressId: string }> }) {

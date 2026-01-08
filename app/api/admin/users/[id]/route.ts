@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import type { NextRequest } from 'next/server';
 
+export const runtime = 'nodejs';
 
 export async function PATCH(
   request: NextRequest,

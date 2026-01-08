@@ -3,6 +3,8 @@ import { updateMenuSchema } from "@/schemas/menu";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
+export const runtime = 'nodejs';
+
 // Route handlers fixed to use the proper Next.js App Router signature: 
 // (req: Request, { params }: { params: Promise<{ menuId: string }> })
 

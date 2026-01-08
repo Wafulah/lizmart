@@ -3,6 +3,8 @@ import { createPaymentSchema } from "@/schemas/order";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
+export const runtime = 'nodejs';
+
 // Next.js App Router expects handler signatures like:
 // export async function GET(req: Request, { params }: { params: Promise<{ orderId: string }>})
 

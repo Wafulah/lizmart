@@ -13,7 +13,8 @@ const nextConfig = {
             "images.unsplash.com",
             "images.pexels.com",
             "lh3.googleusercontent.com"
-        ]
+        ],
+        minimumCacheTTL: 60 * 60 * 24 * 365, 
     }
 }
 

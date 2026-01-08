@@ -7,6 +7,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 
+export const runtime = 'nodejs';
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": process.env.FRONTEND_STORE_URL ?? "https://neocommerce.vercel.app",
   "Access-Control-Allow-Methods": "POST, OPTIONS",

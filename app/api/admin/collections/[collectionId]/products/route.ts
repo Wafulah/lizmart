@@ -1,22 +1,23 @@
-// app/api/carts/[cartId]/items/route.ts
+// app/api/collections/[collectionId]/products/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { addCartItemSchema } from '@/schemas/cart';
 import { z } from 'zod';
-import { Decimal } from '@prisma/client/runtime/library';
 
-export async function POST(
+export const runtime = 'nodejs';
+
+export async function GET(
   req: NextRequest,
-  context: { params: Promise<{ cartId: string }> }
+  context: { params: Promise<{ collectionId: string }> }
 ) {
   try {
-    const body = await req.json();
-    const parsed = addCartItemSchema.parse(body);
-    const { cartId } = await context.params; // Now awaiting the Promise
+    const { collectionId } = await context.params;
+    if (!collectionId) {
+      return NextResponse.json({ error: "Missing collectionId" }, { status: 400 });
+    }
 
     // Start transaction for atomicity
-    const result = await prisma.$transaction(async (tx) => {
-      const cart = await tx.cart.findUnique({ where: { id: cartId } });
+    const products = await prisma.product.findMany({
+      where: { collections: { some: { id: collectionId } } }
       if (!cart) {
         throw { status: 404, message: 'Cart not found' };
       }

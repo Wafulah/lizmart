@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import * as z from "zod";
 
+export const runtime = 'nodejs';
+
 const bodySchema = z.object({
   title: z.string().min(1),
   handle: z.string().min(1),

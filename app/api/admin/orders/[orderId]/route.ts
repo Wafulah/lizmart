@@ -3,6 +3,8 @@ import { updateOrderSchema } from "@/schemas/order";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
+export const runtime = 'nodejs';
+
 // Next.js App Router expects the second argument to be the shape: { params: Promise<{ orderId: string }>}
 
 export async function GET(

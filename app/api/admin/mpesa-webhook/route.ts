@@ -3,6 +3,8 @@ import { sendOrderAlert } from "@/lib/new-order-alert";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
+export const runtime = 'nodejs';
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": process.env.FRONTEND_STORE_URL ?? "https://lizmart.vercel.app",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
